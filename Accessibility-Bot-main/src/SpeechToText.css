@@ -1,0 +1,72 @@
+.speech-to-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  /* background-color: #007bff; Blue background */
+  height: 100vh;
+  color: white;
+}
+
+
+
+.mic-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.mic-idle {
+  color: rgb(213, 194, 194);
+}
+
+.mic-listening {
+  color: red;
+}
+
+.text-box {
+  width: 550px;
+  height: 150px;
+  padding: 10px;
+  background-color: white;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  resize: none;
+  box-sizing: border-box;
+}
+
+.download-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #fff;
+  color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.download-btn:hover {
+  background-color: #ddd;
+}
+p{
+  color:#333;
+}
+
+/* Light mode styles */
+.light-mode .h1 {
+  color: black; /* Black text for light mode */
+  transition: color 0.3s ease-in-out; /* Smooth color transition */
+}
+
+/* Dark mode styles */
+.dark-mode .h1 {
+  color: white; /* White text for dark mode */
+  transition: color 0.3s ease-in-out; /* Smooth color transition */
+}
+

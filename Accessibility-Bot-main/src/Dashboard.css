@@ -1,0 +1,367 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Dashboard container */
+.dashboard {
+    display: flex;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevent scrolling */
+}
+
+/* Add this to Dashboard.css */
+
+.dashboard-header {
+    position: absolute; /* Position the header at the top */
+    top: 0; /* Align to the top of the page */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for horizontal centering */
+    
+    padding: 0.5rem 1rem; /* Add padding for spacing */
+    
+    z-index: 1000; /* Ensure it stays above other elements */
+    width: auto; /* Adjust width as needed */
+  }
+  
+  .dashboard-title {
+    font-size: 100%; /* Increase the size for better visibility */
+    font-weight: bold; /* Bold for emphasis */
+    color: #333; /* Dark text color */
+    margin: 0; /* Remove default margin */
+  }
+  
+/* Navbar styling */
+
+/* Adjust spacing for the logo */
+.bot-logo {
+    width: 80px;  /* Make the logo bigger */
+    height: 80px;
+    border-radius: 50%;
+    position: absolute;
+    top: 1px;  /* Space from the top of the screen */
+    left: -170px; /* Space from the left of the screen */
+    z-index: 2; /* Ensure it stays above other elements */
+}
+
+/* Navbar styling */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 80px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 30px;  /* Adjust the space between the navbar and the top of the screen */
+    left: 230px; /* Start after the logo */
+    right: 120px; /* Add space on the right side */
+    z-index: 1000;
+    border-radius: 8px; /* Add rounded corners to the navbar */
+}
+
+.nav-items {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;  /* Adjusted to give more space for the logout button */
+}
+
+.nav-item {
+    padding: 10px 20px;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.nav-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.nav-item:hover {
+    background-color: #8BC9D1;
+    border-radius: 8px;
+}
+
+/* Ensure logout button doesn't overflow */
+.nav-item.logout {
+    margin-left: auto;  /* Push the logout button to the right */
+}
+
+/* Sidebar styling */
+.sidebar {
+    background-color: #FFFFFF;
+    padding: 10px;
+    width: 209px;
+    height: auto; /* Remove the height calculation to make it fit the content */
+    max-height: 450px; /* Set a fixed maximum height */
+    margin-top: 80px; /* Avoid overlap with navbar */
+    position: fixed; /* Fixed to the side */
+    top: 80px;
+    left: 20px; /* Add a gap from the screen's left edge */
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 100; /* Ensure sidebar is behind the chat input box */
+    overflow-y: auto; /* Allow scrolling if content exceeds max height */
+}
+
+/* Sidebar items */
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.noscript-message {
+    background-color: #f8d7da; /* Light red background */
+    color: #721c24; /* Dark red text for visibility */
+    border: 1px solid #f5c6cb; /* Border to match the color theme */
+    padding: 1rem; /* Add spacing for better readability */
+    text-align: center; /* Center-align the text */
+    font-size: 1.2rem; /* Slightly larger font size */
+    margin: 1rem 0; /* Add margin to separate it from other elements */
+  }
+  
+.sidebar li {
+    padding: 15px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Smooth hover transition */
+    border-radius: 8px; /* Rounded corners for the list items */
+}
+
+/* Sidebar hover with curved effect */
+.sidebar li:hover {
+    background-color: #8BC9D1; /* Hover background */
+    padding-left: 15px; /* Slight shift on hover */
+    transition: all 0.3s ease; /* Smooth hover transition */
+    border-radius: 12px; /* Apply curved corners on hover */
+}
+
+/* Main chat area styling */
+.main-chat {
+    flex-grow: 1;
+    margin-left: 240px; /* Adjust for the sidebar width */
+    padding: 20px;
+    margin-top: 100px; /* Avoid overlap with navbar */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 80px); /* Fill the rest of the screen without scrolling */
+}
+
+/* Chat input box positioning */
+.chat-input-box-container {
+    position: fixed;
+    bottom: 0;
+    left: 225px; /* Adjusted to start after the sidebar */
+    right: 100px; /* Leave some space on the right side */
+    margin-left: 5px;
+    background-color: inherit;
+    padding: 10px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* Chat input box */
+.chat-input-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Chat input box field */
+.chat-input-box input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    margin-right: 10px;
+}
+
+/* Hoverable icons */
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.icon-btn img {
+    width: 30px;
+    height: 30px;
+}
+
+.icon-btn:hover {
+    background-color: #8BC9D1;
+    border-radius: 8px;
+}
+
+/* Dropdown content for zoom in and zoom out */
+.zoom-dropdown-content {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.zoom-dropdown-content div {
+    padding: 8px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* Zoom icons in dropdown */
+.zoom-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+
+/* Dropdown styling for account options */
+.account-dropdown {
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    margin-top: 35px; /* Adjusted to move the dropdown down */
+    z-index: 1;
+    border-radius: 5px;
+    right: 20px; /* Align it to the right */
+}
+
+/* Dropdown items */
+.dropdown-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Highlight the active navigation item */
+.nav-item.active {
+    background-color: #8BC9D1;  /* Highlighted background */
+    border-radius: 8px;
+    font-weight: bold;
+    color: #000;
+} 
+
+
+/* Buttons hover for bright mode */
+.bright-mode .icon-btn:hover {
+    background-color: #8BC9D1;  /* Hover background for buttons */
+    border-radius: 8px;
+}
+
+/* Text input in bright mode */
+.bright-mode .chat-input-box input {
+    background-color: #FFFFFF;
+    color: #000000;
+    border: 1px solid #CCC;
+}
+
+/* Ensure that other button states in bright mode have proper hover */
+.bright-mode .zoom-dropdown-content div:hover {
+    background-color: #8BC9D1;  /* Hover background for zoom options */
+    border-radius: 5px;
+}
+
+.bright-mode .account-dropdown .dropdown-item:hover {
+    background-color: #8BC9D1;                          /* your account dropdown hover color */
+    border-radius: 5px;
+}
+
+
+/* Night mode specific styles */
+.night-mode .chat-input-box button,
+.night-mode .icon-btn {
+    background-color: #34495e;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.night-mode .account-dropdown .dropdown-item:hover {
+    background-color: #4a6c87;                          /* your account dropdown hover color */
+    border-radius: 5px;
+}
+
+.night-mode .icon-btn:hover {
+    background-color: #4a6c87;
+}
+
+
+.night-mode {
+    background-color: #1c2833;  /* Updated darker background for night mode */
+    color: #ecf0f1;  /* Light text color for contrast */
+}
+
+.night-mode .sidebar,
+.night-mode .navbar {
+    background-color: #2e4053;  /* Darker background for elements in night mode */
+    color: #ffffff;  /* White text in night mode */
+}
+
+.night-mode .chat-input-box input {
+    background-color: #2e4053;  /* Darker input box background */
+    color: #ecf0f1;  /* Input box text color */
+    border: 1px solid #ecf0f1;
+}
+
+.night-mode .icon-btn:hover {
+    background-color: #4a6c87;  /* Button hover background */
+    border-radius: 8px;
+}
+
+.night-mode .nav-item:hover {
+    background-color: #4a6c87;  /* Hover background for navigation items */
+    border-radius: 8px;
+}
+
+.night-mode .sidebar li:hover {
+    background-color: #4a6c87;  /* Hover background for sidebar items */
+    padding-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.night-mode .zoom-dropdown-content div:hover {
+    background-color: #4a6c87;  /* Hover background for zoom options */
+}
+
+.night-mode .zoom-dropdown-content {
+    background-color: #3b4d61;  /* Dropdown background */
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.night-mode .account-dropdown {
+    background-color: #2e4053;  /* Dark background for account dropdown in night mode */
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Highlight the active navigation item */
+.night-mode .nav-item.active {
+    background-color: #4a6c87;  /* Highlighted background */
+    border-radius: 8px;
+    font-weight: bold;
+    color: #fff;
+} 

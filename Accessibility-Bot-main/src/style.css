@@ -1,0 +1,214 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* App container full height */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure it takes full height */
+}
+
+/* Logo styling */
+.global-logo {
+    position: fixed;
+    top: 50px;
+    left: 150px;
+    width: 90px;
+    height: 90px;
+    z-index: 1001; /* Ensure it stays above other content */
+    border-radius: 50%;
+    background-color: white;
+}
+
+/* Mode Switch Button in Top-Right Corner */
+.mode-switch {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #8BC9D1;
+    color: #000000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.mode-switch:hover {
+    background-color: #06d0e3;
+}
+
+.night-mode .mode-switch {
+    background-color: #34495e;
+    color: #ffffff;
+}
+
+.night-mode .mode-switch:hover {
+    background-color: #4a6c87;
+}
+
+/* Full-width container for pages */
+.page-content {
+    flex-grow: 1;
+    padding: 20px;
+    width: 100%;
+    background-color: #FFFFFF;
+}
+
+/* Bright mode */
+.bright-mode {
+    background-color: #D3F3F6;
+    color: #000;
+}
+
+.bright-mode .page-content {
+    background-color: #FFFFFF;
+}
+
+/* Night mode */
+.night-mode {
+    background-color: #1c2833;
+    color: #ecf0f1;
+}
+
+.night-mode .page-content {
+    background-color: #2e4053;
+}
+
+/* Form container styles */
+.signup-container, .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Stack the form and title vertically */
+    height: calc(100vh - 60px); /* Subtract the height of the header */
+    background-color: #D3F3F6;
+    margin-top: 60px;
+    padding: 20px;
+}
+
+/* Website title styling */
+.website-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #000000; /* Black text color in bright mode */
+    text-align: center;
+    margin-bottom: 20px; /* Add some space below the title */
+}
+
+/* Website title styling for night mode */
+.night-mode .website-title {
+    color: #FFFFFF; /* White text color in night mode */
+}
+
+/* Sign-up and Login forms styling */
+.signup-form, .login-form {
+    background: rgba(255, 255, 255, 0.9); /* White background in bright mode */
+    padding: 40px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+    box-shadow: 10px 10px 0px #83EAE2, /* L-shaped shadow for bright mode */
+                0px 20px 15px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
+}
+
+/* Sign-up and Login forms styling for night mode */
+.night-mode .signup-form, .night-mode .login-form {
+    background: #2e4053; /* Dark background for forms in night mode */
+    box-shadow: 10px 10px 0px #b0b0b0, /* L-shaped light grey shadow */
+                0px 20px 15px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
+}
+
+/* Input fields */
+.signup-form input, .login-form input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #000; /* Black text color */
+    background-color: #E6F3F6; /* Input background color in bright mode */
+}
+
+/* Input fields in night mode */
+.night-mode input {
+    background-color: #2e4053; /* Dark background for input fields in night mode */
+    color: #ecf0f1; /* Light text color in night mode */
+}
+
+/* Placeholder color */
+.signup-form input::placeholder, .login-form input::placeholder {
+    color: #000000; /* Black placeholder text in bright mode */
+}
+
+.night-mode input::placeholder {
+    color: #b0b0b0; /* Light grey placeholder text in night mode */
+}
+
+/* Buttons */
+.signup-form button, .login-form button {
+    background-color: #8BC9D1;
+    color: #0F0F0F;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.signup-form button:hover, .login-form button:hover {
+    background-color: #06d0e3;
+}
+
+/* Forgot Password and Sign Up Links Styling */
+a, .forgot-password {
+    color: #006699;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+a:hover, .forgot-password:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+/* Night mode links */
+.night-mode a, .night-mode .forgot-password {
+    color: #b0b0b0; /* Light grey link color in night mode */
+}
+
+.night-mode a:hover, .night-mode .forgot-password:hover {
+    color: #6bc78c; /* Green hover color for links in night mode */
+    text-decoration: underline;
+}
+
+/* Feedback messages */
+.feedback {
+    color: #ff6b6b;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.success-message {
+    color: #6bc78c;
+}
+
+
+

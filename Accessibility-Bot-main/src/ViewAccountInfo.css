@@ -1,0 +1,89 @@
+/* Account Info Page Styles */
+.account-info-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 100px auto 0 auto; /* Add margin-top to account for the header height */
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 10px 10px 0px #83EAE2, /* L-shaped shadow for bright mode */
+                0px 20px 15px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
+}
+
+/* Ensure there's enough space under the header */
+.account-info-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.account-info-form label {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #333;
+}
+
+.account-info-form input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+    width: 100%;
+}
+
+.account-info-form button {
+    background-color: #8BC9D1;
+    color: #262626;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.account-info-form button:hover {
+    background-color: #06d0e3;
+}
+
+.feedback {
+    color: green;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Night mode specific styles */
+.night-mode .account-info-container {
+    background-color: #1c2833;
+    color: #ecf0f1;
+    border-radius: 8px;
+    box-shadow: 10px 10px 0px #b0b0b0, /* L-shaped light grey shadow */
+                0px 20px 15px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
+    padding: 20px;
+}
+
+.night-mode .account-info-form label {
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.night-mode .account-info-form input {
+    background-color: #2e4053;
+    color: #ecf0f1;
+    border: 1px solid #8bc9d1;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.night-mode .account-info-form button {
+    background-color: #34495e;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.night-mode .account-info-form button:hover {
+    background-color: #4a6c87;
+}

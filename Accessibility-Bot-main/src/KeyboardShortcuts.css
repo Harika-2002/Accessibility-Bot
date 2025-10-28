@@ -1,0 +1,55 @@
+/* KeyboardShortcuts.css */
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color: #000000;
+}
+
+.shortcuts-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.shortcut-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #000;
+}
+
+.shortcut-key {
+    font-weight: bold;
+    color: #000000;
+}
+
+.description {
+    color: #000000;
+}
+
+.night-mode .container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #dfdfdf;
+    font-family: Arial, sans-serif;
+}
+
+/* Hyphen styling */
+.shortcut-item .hyphen {
+    color: black; /* Default color for bright mode */
+}
+
+/* Change hyphen color in night mode */
+.night-mode .shortcut-item .hyphen {
+    color: #000; /* Change to a light color for night mode */
+}
