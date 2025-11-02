@@ -42,16 +42,18 @@ useEffect(() => {
 
     return (
         <div className={`app-container ${isNightMode ? 'night-mode' : 'bright-mode'}`}>
-            {/* Conditionally show the logo only if NOT on the /dashboard route */}
+            {/* Topbar: logo on the left, mode switch on the right (in-flow, responsive) */}
             {location.pathname !== '/dashboard' && (
-                <img src={botImage} alt="Bot Logo" className="global-logo" />
-            )}
-            
-            {/* Conditionally render the toggle button only if NOT on the /dashboard route */}
-            {location.pathname !== '/dashboard' && (
-                <button onClick={toggleNightMode} className="mode-switch">
-                    {isNightMode ? 'Switch to Bright Mode' : 'Switch to Night Mode'}
-                </button>
+                <header className="topbar">
+                    <div className="topbar-left">
+                        <img src={botImage} alt="Bot Logo" className="global-logo" />
+                    </div>
+                    <div className="topbar-right">
+                        <button onClick={toggleNightMode} className="mode-switch">
+                            {isNightMode ? 'Switch to Bright Mode' : 'Switch to Night Mode'}
+                        </button>
+                    </div>
+                </header>
             )}
 
             <Routes>
