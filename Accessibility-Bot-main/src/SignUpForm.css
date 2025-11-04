@@ -11,8 +11,7 @@
   width: 100%;
   background-color: #D3F3F6;
   margin: 0;
-  /* responsive padding: keeps spacing on large screens but reduces on small devices */
-  padding: clamp(12px, 3vw, 30px);
+  padding: 30px;
   box-sizing: border-box;
 }
 
@@ -30,9 +29,9 @@
 }
 
 .signup-form h2 {
-  font-size: clamp(18px, 2.2vw, 22px);
-  margin: 0 0 18px 0;
-  padding: 0 12px;
+  font-size: 22px;
+  margin: 0 0 22px 0;
+  padding: 0 30px;
   line-height: 1.25;
   word-break: break-word;
   text-align: center;
@@ -48,8 +47,7 @@
 
 .signup-form input, .signup-form select, .signup-form textarea {
   font-size: 16px;
-  /* responsive field padding: large enough for accessibility but shrinks on small screens */
-  padding: clamp(10px, 2.5vw, 18px);
+  padding: 30px;
   text-align: left;
 }
 
@@ -100,9 +98,7 @@
 /* Core form panel */
 .signup-form, .login-form {
   background: rgba(255, 255, 255, 0.95);
-  /* responsive padding so the form looks good on all devices */
-  --form-padding: clamp(16px, 4vw, 50px);
-  padding: var(--form-padding);
+  padding: var(--desktop-form-padding);
   border-radius: 12px;
   width: 100%;
   max-width: 520px;
@@ -111,12 +107,7 @@
   box-shadow: 10px 10px 0px #83EAE2,
         0px 20px 15px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
-  /* prevent the page from scrolling unnecessarily on short viewports
-     by allowing the form itself to scroll if needed while keeping the
-     container vertically centered */
-  max-height: calc(100vh - 120px);
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  overflow: visible;
 }
 
 .night-mode .signup-form, .night-mode .login-form {
@@ -127,7 +118,7 @@
 
 .signup-form input, .login-form input {
   width: 100%;
-  padding: clamp(10px, 2.5vw, 18px);
+  padding: 30px;
   margin-top: 10px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
@@ -190,16 +181,15 @@
 @media (max-width: 768px) {
   .signup-container,
   .login-container {
-    margin-top: 8px;
-    padding-top: 16px;
+    margin-top: 20px;
+    padding-top: 30px;
     height: auto;
   }
 
   .signup-form,
   .login-form {
     margin-top: 8px;
-    /* use smaller internal padding on narrow screens to avoid overflow */
-    padding: clamp(14px, 4vw, 28px);
+    padding: 30px; /* smaller padding on small screens but still roomy for translations */
   }
 
   .signup-container, .login-container {
@@ -209,7 +199,7 @@
   /* On very small devices, let the form fill available width visually */
   @media (max-width: 420px) {
     .signup-form, .login-form {
-      padding: 18px;
+      padding: 30px;
     }
   }
 }
