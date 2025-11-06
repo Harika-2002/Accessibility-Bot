@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Tesseract from "tesseract.js"; // Import Tesseract for text extraction
 import "./ImageToText.css";
 
+
 const ImageToText = () => {
   const [image, setImage] = useState(null); // Stores the selected image URL
   const [text, setText] = useState(""); // Stores the extracted text
@@ -50,40 +51,51 @@ const ImageToText = () => {
   };
 
   return (
-    <div className="image-to-text-container">
-      <h1>Image to Text Converter</h1>
+    <div className={`image-to-text-container`}>
+      <header className="page-header">
+        <h1 className="page-title">Image to Text Converter</h1>
+        <div className="page-actions">
+          {/* Night mode handled at top-level app in other pages; local toggle kept simple */}
+        </div>
+      </header>
       <main>
-        {/* File input to select an image */}
-        <input
-          key={fileInputKey} // Reset file input when necessary
-          type="file"
-          accept="image/*"
-          onChange={handleImageUpload}
-          disabled={isExtracting} // Disable input while extracting
-          aria-label="Upload an image to extract text"
-        />
+        <div className="content">
+          {/* File input to select an image */}
+          <input
+            key={fileInputKey} // Reset file input when necessary
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            disabled={isExtracting} // Disable input while extracting
+            aria-label="Upload an image to extract text"
+          />
 
-        {/* Display image preview and cancel button if an image is uploaded */}
-        {image && (
-          <div className="image-preview">
-            <img src={image} alt="Uploaded" className="uploaded-image" />
-            <button className="cancel-button" onClick={handleCancel}>
-              Cancel
-            </button>
+          {/* Display image preview and cancel button if an image is uploaded */}
+          {image && (
+            <div className="image-preview">
+              <img src={image} alt="Uploaded" className="uploaded-image" />
+              <button
+                className="cancel-button"
+                onClick={handleCancel}
+                aria-label="Retry another image"
+              >
+                Retry another image
+              </button>
+            </div>
+          )}
+
+          {/* Show progress while extracting text */}
+          {isExtracting && (
+            <div className="progress">
+              <p>Extracting... {progress}%</p>
+            </div>
+          )}
+
+          {/* Display the extracted text */}
+          <div className="extracted-text">
+            <h2>Extracted Text:</h2>
+            <p>{text || "Text will appear here after extraction."}</p>
           </div>
-        )}
-
-        {/* Show progress while extracting text */}
-        {isExtracting && (
-          <div className="progress">
-            <p>Extracting... {progress}%</p>
-          </div>
-        )}
-
-        {/* Display the extracted text */}
-        <div className="extracted-text">
-          <h2>Extracted Text:</h2>
-          <p>{text || "Text will appear here after extraction."}</p>
         </div>
       </main>
     </div>

@@ -213,6 +213,15 @@ a:hover, .forgot-password:hover {
     margin-top: 20px;
 }
 
+/* Inline field-level error messages (used by login & signup forms) */
+.field-error {
+    color: #cc2f2f;
+    font-size: 14px;
+    margin-top: -8px;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
 .success-message {
     color: #6bc78c;
 }

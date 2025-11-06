@@ -13,11 +13,24 @@ const LoginForm = ({ isNightMode }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false); // Added loading state
+  const [errors, setErrors] = useState({ email: "", password: "" });
   const auth = getAuth(app);
   const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    // client-side validation
+    const next = { email: "", password: "" };
+    if (!email || !email.trim()) next.email = "Please fill out Email ID";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) next.email = "Please enter a valid email address.";
+    if (!password || password.length === 0) next.password = "Please fill out Password";
+    setErrors(next);
+    const first = Object.keys(next).find((k) => next[k]);
+    if (first) {
+      const el = document.getElementById(first);
+      if (el && typeof el.focus === "function") el.focus();
+      return;
+    }
     setLoading(true); // Start loading
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -74,20 +87,54 @@ const LoginForm = ({ isNightMode }) => {
             id="email"
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setErrors((prev) => ({ ...prev, email: "" }));
+              e.target.setCustomValidity("");
+            }}
+            onInvalid={(e) => {
+              e.preventDefault();
+              const msg = e.target.validity.typeMismatch ? "Please enter a valid email address." : "Please fill out Email ID";
+              e.target.setCustomValidity(msg);
+              setErrors((prev) => ({ ...prev, email: msg }));
+            }}
+            onInput={(e) => e.target.setCustomValidity("")}
             placeholder="Email ID"
             required
+            aria-describedby={errors.email ? "login-email-error" : undefined}
           />
+          {errors.email && (
+            <div id="login-email-error" className="field-error" role="alert">
+              {errors.email}
+            </div>
+          )}
 
           <label htmlFor="password">Enter Your Password</label>
           <input
             id="password"
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setErrors((prev) => ({ ...prev, password: "" }));
+              e.target.setCustomValidity("");
+            }}
+            onInvalid={(e) => {
+              e.preventDefault();
+              const msg = "Please fill out Password";
+              e.target.setCustomValidity(msg);
+              setErrors((prev) => ({ ...prev, password: msg }));
+            }}
+            onInput={(e) => e.target.setCustomValidity("")}
             placeholder="Enter Your Password"
             required
+            aria-describedby={errors.password ? "login-password-error" : undefined}
           />
+          {errors.password && (
+            <div id="login-password-error" className="field-error" role="alert">
+              {errors.password}
+            </div>
+          )}
 
           <button type="submit" disabled={loading}>
             {" "}

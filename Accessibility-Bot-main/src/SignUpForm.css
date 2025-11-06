@@ -129,6 +129,20 @@
   background-color: #E6F3F6;
 }
 
+/* Small layout for the show-password checkbox and label */
+.show-password {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px; /* ensure checkbox appears below the input */
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+.show-password input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+
 .night-mode input {
   background-color: #2e4053;
   color: #ecf0f1;

@@ -188,6 +188,14 @@ const Dashboard = ({ showSidebar }) => {
   };
 
   const handleLogout = () => {
+    // Clear any persisted login state
+    try {
+      localStorage.removeItem("isLoggedIn");
+    } catch (e) {
+      // ignore
+    }
+    // Show confirmation popup then redirect to login
+    alert("You have been logged out successfully.");
     navigate("/login");
   };
 
