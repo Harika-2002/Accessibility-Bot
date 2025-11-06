@@ -7,18 +7,18 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const SignUpForm = ({ isNightMode }) => {
-  const [userid, setUserID] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [langAttrs, setLangAttrs] = useState({ dir: "ltr", lang: "en" });
-  const [errors, setErrors] = useState({ userID: "", email: "", password: "" });
+  const [errors, setErrors] = useState({ username: "", email: "", password: "" });
   const auth = getAuth(app);
   const db = getFirestore(app);
   const navigate = useNavigate();
-
+  
   const handleSignUp = async (event) => {
     event.preventDefault();
 
@@ -26,8 +26,8 @@ const SignUpForm = ({ isNightMode }) => {
     setMessage("");
 
     // Client-side per-field validation (inline + native bubble)
-    const nextErrors = { userID: "", email: "", password: "" };
-    if (!userid || !userid.trim()) nextErrors.userID = "Please fill out User ID";
+    const nextErrors = { username: "", email: "", password: "" };
+    if (!username || !username.trim()) nextErrors.username = "Please fill out Username";
     if (!email || !email.trim()) nextErrors.email = "Please fill out Email ID";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) nextErrors.email = "Please enter a valid email address.";
     if (!password || password.length === 0) nextErrors.password = "Please fill out Password";
@@ -37,7 +37,7 @@ const SignUpForm = ({ isNightMode }) => {
     const firstErrorField = Object.keys(nextErrors).find((k) => nextErrors[k]);
     if (firstErrorField) {
       // focus the first invalid field and prevent submission
-      const el = document.getElementById(firstErrorField === 'userID' ? 'userID' : firstErrorField);
+      const el = document.getElementById(firstErrorField === 'username' ? 'username' : firstErrorField);
       if (el && typeof el.focus === 'function') el.focus();
       return;
     }
@@ -54,16 +54,16 @@ const SignUpForm = ({ isNightMode }) => {
       const user = userCredential.user;
 
       await setDoc(doc(db, "users", user.uid), {
-        userid: userid,
+        username: username,
         email: email,
       });
 
-      setMessage("Registration successful! Redirecting to dashboard...");
-      setUserID(""); // Clear form fields
+      setMessage("Registration successful! Redirecting to login...");
+      setUsername(""); // Clear form fields
       setEmail("");
       setPassword("");
 
-      setTimeout(() => navigate("/dashboard"), 2000); // Redirect after a short delay
+      setTimeout(() => navigate("/login"), 1600); // Redirect to login after a short delay
     } catch (error) {
       // Custom error messages based on error code
       if (error.code === "auth/email-already-in-use") {
@@ -127,37 +127,37 @@ const SignUpForm = ({ isNightMode }) => {
             </p>
           )}
 
-          <label htmlFor="userID">User ID</label>
+          <label htmlFor="username">Username</label>
           <input
-            id="userID"
-            name="userID"
+            id="username"
+            name="username"
             type="text"
-            value={userid}
+            value={username}
             onChange={(e) => {
-              setUserID(e.target.value);
+              setUsername(e.target.value);
               // clear inline error while typing
-              setErrors((prev) => ({ ...prev, userID: "" }));
+              setErrors((prev) => ({ ...prev, username: "" }));
               // clear native bubble
               e.target.setCustomValidity("");
             }}
             onInvalid={(e) => {
               // prevent default browser message and set custom text
               e.preventDefault();
-              const msg = "Please fill out User ID";
+              const msg = "Please fill out Username";
               e.target.setCustomValidity(msg);
-              setErrors((prev) => ({ ...prev, userID: msg }));
+              setErrors((prev) => ({ ...prev, username: msg }));
             }}
             onInput={(e) => {
               e.target.setCustomValidity("");
             }}
-            placeholder="User ID"
+            placeholder="Username"
             autoComplete="username"
             required
-            aria-describedby={errors.userID ? "userID-error" : undefined}
+            aria-describedby={errors.username ? "username-error" : undefined}
           />
-          {errors.userID && (
-            <div id="userID-error" className="field-error" role="alert">
-              {errors.userID}
+          {errors.username && (
+            <div id="username-error" className="field-error" role="alert">
+              {errors.username}
             </div>
           )}
 

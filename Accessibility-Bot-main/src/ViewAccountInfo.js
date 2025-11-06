@@ -18,15 +18,31 @@ const ViewAccountInfo = () => {
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
 
+        let fetchedUsername = "";
         if (docSnap.exists()) {
           const userData = docSnap.data();
-          setEmail(user.email); // Set email from Firebase authentication
-          setUsername(userData.username || ""); // Set username from Firestore
-        } else {
-          console.log("No such document!");
+          fetchedUsername = userData.username || "";
         }
+
+        // fallback to session storage keys if Firestore doesn't have username
+        const sessUsername =
+          sessionStorage.getItem("username") ||
+          sessionStorage.getItem("userName") ||
+          "";
+
+        setUsername(fetchedUsername || sessUsername || "");
+        setEmail(user.email || sessionStorage.getItem("email") || "");
       };
       fetchUserInfo();
+    } else {
+      // no firebase user available, try session storage fallback
+      const sessUsername =
+        sessionStorage.getItem("username") ||
+        sessionStorage.getItem("userName") ||
+        "";
+      const sessEmail = sessionStorage.getItem("email") || "";
+      if (sessUsername) setUsername(sessUsername);
+      if (sessEmail) setEmail(sessEmail);
     }
   }, [user]);
 
@@ -66,6 +82,8 @@ const ViewAccountInfo = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
+              placeholder="Enter your username"
+              aria-label="Username"
             />
           </label>
 
@@ -76,6 +94,8 @@ const ViewAccountInfo = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              placeholder="you@example.com"
+              aria-label="Email ID"
             />
           </label>
 

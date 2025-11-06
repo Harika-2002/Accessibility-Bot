@@ -1,89 +1,174 @@
 /* Account Info Page Styles */
+/* Use the same centered card layout as signup/login */
 .account-info-container {
-    padding: 20px;
-    max-width: 600px;
-    margin: 100px auto 0 auto; /* Add margin-top to account for the header height */
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 8px;
+    /* keep spacing for header but match signup layout */
+    padding: 40px;
+    max-width: 400px;
+    margin: 80px auto; /* center like signup */
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
     box-shadow: 10px 10px 0px #83EAE2, /* L-shaped shadow for bright mode */
                 0px 20px 15px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
+    text-align: center; /* center title and form like signup */
 }
 
-/* Ensure there's enough space under the header */
+/* Ensure headings inside the card are visible in both modes */
+.account-info-container h1,
+.account-info-container h2,
+.account-info-container .account-title {
+    color: #000; /* bright mode heading color */
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* Form layout and fields (reuse signup styles) */
 .account-info-form {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
 }
 
 .account-info-form label {
-    margin-bottom: 15px;
-    font-size: 16px;
+    margin-bottom: 8px;
+    font-size: 15px;
     color: #333;
+    text-align: left;
 }
 
+/* Ensure labels are visible and positioned like signup labels (night mode) */
+.night-mode .account-info-form label {
+    color: #ecf0f1;       /* visible label text in dark mode */
+    font-weight: 600;     /* stronger than body text for clarity */
+    display: block;       /* sit above inputs like signup */
+    margin-bottom: 8px;
+}
+
+/* Form fields */
 .account-info-form input {
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
-    border-radius: 4px;
+    border-radius: 6px;
     border: 1px solid #ccc;
-    margin-top: 5px;
+    margin-bottom: 18px;
     width: 100%;
+    background-color: #E6F3F6;
+    color: #000;
+    box-sizing: border-box;
 }
 
+/* Ensure all common input types show high-contrast value text in night mode */
+.night-mode .account-info-form input,
+.night-mode .account-info-form input[type="text"],
+.night-mode .account-info-form input[type="email"],
+.night-mode .account-info-form input[type="tel"],
+.night-mode .account-info-form input[type="password"],
+.night-mode .account-info-form textarea {
+    color: #ecf0f1 !important; /* force high-contrast input text */
+}
+
+/* Placeholder and readonly/disabled readability in night mode */
+.night-mode .account-info-form input::placeholder,
+.night-mode .account-info-form textarea::placeholder {
+    color: #bfc9cc;
+    opacity: 1;
+}
+
+.night-mode .account-info-form input[readonly],
+.night-mode .account-info-form input:disabled,
+.night-mode .account-info-form textarea[readonly],
+.night-mode .account-info-form textarea:disabled {
+    color: #ecf0f1;
+    opacity: 1;
+    background-color: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Buttons - bright mode (visible contrast) */
 .account-info-form button {
     background-color: #8BC9D1;
-    color: #262626;
-    padding: 10px;
+    color: #0F0F0F;
+    padding: 12px;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 16px;
     cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+    width: 100%;
+    margin-top: 8px;
 }
 
 .account-info-form button:hover {
     background-color: #06d0e3;
+    transform: translateY(-1px);
 }
 
-.feedback {
-    color: green;
-    font-size: 16px;
-    margin-bottom: 20px;
+/* Focus-visible for keyboard users */
+.account-info-form input:focus-visible,
+.account-info-form button:focus-visible {
+    outline: 3px solid rgba(43,187,173,0.28);
+    outline-offset: 2px;
 }
 
-/* Night mode specific styles */
+/* Night mode specific styles - mirror signup/login night mode */
 .night-mode .account-info-container {
-    background-color: #1c2833;
+    background: linear-gradient(180deg, rgba(46,64,83,0.98), rgba(36,54,71,0.95));
     color: #ecf0f1;
-    border-radius: 8px;
-    box-shadow: 10px 10px 0px #b0b0b0, /* L-shaped light grey shadow */
-                0px 20px 15px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
-    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 12px 12px 0px rgba(0,0,0,0.25), 0 24px 30px rgba(0,0,0,0.55);
+    border-left: 8px solid rgba(43,187,173,0.12);
+    padding: 40px;
 }
 
-.night-mode .account-info-form label {
-    color: #ffffff;
-    margin-bottom: 15px;
-    font-size: 16px;
+/* Night headings */
+.night-mode .account-info-container h1,
+.night-mode .account-info-container h2,
+.night-mode .account-info-container .account-title {
+    color: #ecf0f1;
 }
 
+/* Night inputs */
 .night-mode .account-info-form input {
-    background-color: #2e4053;
+    background-color: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.12);
     color: #ecf0f1;
-    border: 1px solid #8bc9d1;
-    border-radius: 4px;
-    padding: 10px;
-    font-size: 16px;
+    padding: 12px;
+    border-radius: 6px;
 }
 
+/* High-contrast night button */
 .night-mode .account-info-form button {
-    background-color: #34495e;
+    background-color: #2bbbad; /* bright teal for contrast */
     color: #ffffff;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
+    border: 2px solid rgba(255,255,255,0.14);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6), 6px 6px 0 rgba(0,0,0,0.25);
+    padding: 12px;
+    border-radius: 6px;
+    width: 100%;
+    font-weight: 600;
+    transition: background-color 150ms ease, box-shadow 150ms ease, transform 80ms;
 }
 
 .night-mode .account-info-form button:hover {
-    background-color: #4a6c87;
+    background-color: #1aa89a;
+    transform: translateY(-1px);
 }
+
+/* Error / success affordances inside view (non-color cues) */
+.account-info-container .feedback {
+    margin-top: 10px;
+    text-align: left;
+}
+.account-info-container .feedback.error {
+    color: #cc2f2f;
+    padding-left: 22px;
+    position: relative;
+}
+.account-info-container .feedback.error::before { content: "⚠"; position: absolute; left: 0; top: 0; }
+.account-info-container .feedback.success {
+    color: #2a9d6f;
+    padding-left: 22px;
+    position: relative;
+}
+.account-info-container .feedback.success::before { content: "✔"; position: absolute; left: 0; top: 0; }
