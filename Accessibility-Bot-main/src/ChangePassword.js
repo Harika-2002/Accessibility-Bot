@@ -29,18 +29,19 @@ const ChangePassword = () => {
     }
 
     try {
-      // Reauthenticate the user with their current password
       const credential = EmailAuthProvider.credential(
         user.email,
         currentPassword
       );
 
-      // Ensure reauthentication
       await reauthenticateWithCredential(user, credential);
-
-      // Update the password
       await updatePassword(user, newPassword);
       setMessage("Password updated successfully!");
+
+      // Clear form fields after success
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
     } catch (error) {
       if (error.code === "auth/wrong-password") {
         setMessage("Incorrect current password. Please try again.");
@@ -54,43 +55,53 @@ const ChangePassword = () => {
 
   return (
     <div className="change-password-container">
-      <h1>Change Password</h1>
-      {message && <p className="feedback">{message}</p>}
-      <main>
-        <form onSubmit={handlePasswordChange} className="change-password-form">
-          <label>
-            Current Password:
-            <input
-              type="password"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-              required
-            />
-          </label>
+      <form onSubmit={handlePasswordChange} className="change-password-form">
+        <h2>Change Password</h2>
 
-          <label>
-            New Password:
-            <input
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              required
-            />
-          </label>
+        {message && (
+          <p className="feedback" role="alert" aria-live="polite">
+            {message}
+          </p>
+        )}
 
-          <label>
-            Confirm New Password:
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </label>
+        <label htmlFor="current-password">Current Password</label>
+        <input
+          id="current-password"
+          name="currentPassword"
+          type="password"
+          value={currentPassword}
+          onChange={(e) => setCurrentPassword(e.target.value)}
+          placeholder="Current Password"
+          autoComplete="current-password"
+          required
+        />
 
-          <button type="submit">Change Password</button>
-        </form>
-      </main>
+        <label htmlFor="new-password">New Password</label>
+        <input
+          id="new-password"
+          name="newPassword"
+          type="password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          placeholder="New Password"
+          autoComplete="new-password"
+          required
+        />
+
+        <label htmlFor="confirm-password">Confirm New Password</label>
+        <input
+          id="confirm-password"
+          name="confirmPassword"
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          placeholder="Confirm New Password"
+          autoComplete="new-password"
+          required
+        />
+
+        <button type="submit">Change Password</button>
+      </form>
     </div>
   );
 };
