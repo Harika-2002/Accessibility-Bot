@@ -5,8 +5,26 @@ const useKeyboardShortcuts = (toggleNightMode) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // helper: don't trigger shortcuts while typing/editing
+    const isEditingField = (el) => {
+      if (!el) return false;
+      const tag = el.tagName?.toLowerCase();
+      return el.isContentEditable || tag === 'input' || tag === 'textarea' || tag === 'select';
+    };
+
     const handleKeyPress = (event) => {
       const { ctrlKey, altKey, key } = event;
+
+      // --- ISSUE #26: Alt + Left Arrow => go back (global)
+      if (!isEditingField(event.target) && altKey && (key === 'ArrowLeft' || event.code === 'ArrowLeft')) {
+        event.preventDefault();
+        try {
+          navigate(-1);        // use SPA history when available
+        } catch {
+          window.history.back(); // fallback
+        }
+        return;
+      }
 
       // External website shortcuts
       if (ctrlKey && key === 'g') {
@@ -15,7 +33,7 @@ const useKeyboardShortcuts = (toggleNightMode) => {
         window.open('https://www.twitter.com', '_blank'); // Opens Twitter
       } else if (ctrlKey && key === 'b') {
         window.open('https://www.youtube.com', '_blank'); // Opens Youtube
-      }else if (ctrlKey && key === 'j') {
+      } else if (ctrlKey && key === 'j') {
         window.open('https://www.atlassian.com/software/jira', '_blank'); // Opens Jira
       } else if (ctrlKey && key === 'z') {
         window.open('https://www.threads.net/', '_blank'); // Opens Threads
@@ -51,8 +69,9 @@ const useKeyboardShortcuts = (toggleNightMode) => {
         navigate('/delete-account'); // Navigate to Delete Account Page
       } else if (altKey && key === 'z') {
         navigate('/login'); // Logout
-      }else if (altKey && key === 'f') {
+      } else if (altKey && key === 'f') {
         navigate('/image-to-text'); // Navigate to Image to Text page
+
       // Toggle Night Mode
       } else if (ctrlKey && key === 'm') {
         toggleNightMode(); // Toggle Night Mode
@@ -70,11 +89,7 @@ const useKeyboardShortcuts = (toggleNightMode) => {
     };
 
     window.addEventListener('keydown', handleKeyPress);
-
-    // Cleanup event listener on component unmount
-    return () => {
-      window.removeEventListener('keydown', handleKeyPress);
-    };
+    return () => window.removeEventListener('keydown', handleKeyPress);
   }, [navigate, toggleNightMode]);
 };
 
