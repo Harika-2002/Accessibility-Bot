@@ -1,55 +1,86 @@
 /* KeyboardShortcuts.css */
 
+/* ---------- LIGHT MODE (unchanged, minor readability tweaks) ---------- */
 .container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: #fff;
-    font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  font-family: Arial, sans-serif;
+  color: #000000;
 }
 
 h1 {
-    text-align: center;
-    color: #000000;
+  text-align: center;
+  color: #000000;
 }
 
 .shortcuts-list {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 .shortcut-item {
-    padding: 8px 0;
-    border-bottom: 1px solid #000;
+  padding: 8px 0;
+  border-bottom: 1px solid #000;
 }
 
 .shortcut-key {
-    font-weight: bold;
-    color: #000000;
+  font-weight: 700;
+  color: #111827;            /* dark text for light bg */
+  background: #f3f4f6;       /* light keycap */
+  border: 1px solid #cbd5e1; /* subtle key border */
+  padding: 2px 6px;
+  border-radius: 6px;
 }
 
 .description {
-    color: #000000;
+  color: #000000;
 }
 
-.night-mode .container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: #dfdfdf;
-    font-family: Arial, sans-serif;
-}
-
-/* Hyphen styling */
+/* Hyphen styling (light) */
 .shortcut-item .hyphen {
-    color: black; /* Default color for bright mode */
+  color: #374151;
 }
 
-/* Change hyphen color in night mode */
+/* ---------- DARK MODE (night mode) HIGH-CONTRAST FIX ---------- */
+/* Add class="night-mode" on a wrapper to enable */
+.night-mode .container {
+  background-color: #0b0f14;   /* near-black background */
+  color: #f5f5f5;              /* light body text */
+}
+
+/* Improve divider visibility on dark */
+.night-mode .shortcut-item {
+  border-bottom: 1px solid #334155; /* slate-700 */
+}
+
+/* Headings readable on dark */
+.night-mode h1 {
+  color: #f5f5f5;
+}
+
+/* Descriptions readable on dark */
+.night-mode .description {
+  color: #e5e7eb;              /* gray-200 */
+}
+
+/* Keycaps: clear contrast in dark */
+.night-mode .shortcut-key {
+  background: #1f2937;         /* slate-800 */
+  color: #ffffff;              /* white text */
+  border: 1px solid #4b5563;   /* slate-600 */
+}
+
+/* Hyphen readable on dark */
 .night-mode .shortcut-item .hyphen {
-    color: #000; /* Change to a light color for night mode */
+  color: #c7c9cc;              /* light gray */
+}
+
+/* Optional: clear keyboard focus everywhere */
+:where(button, a, input, select, textarea):focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
 }
