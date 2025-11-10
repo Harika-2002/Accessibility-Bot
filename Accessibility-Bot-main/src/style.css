@@ -250,5 +250,62 @@ a:hover, .forgot-password:hover {
     }
 }
 
+/* Make the header stay at the top, but still flow with the page */
+.topbar{
+  position: sticky;     /* not fixed */
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;      /* lets things wrap at high zoom */
+  gap: .75rem 1rem;
+  padding: .5rem 1rem;
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid #e5e7eb;
+         /* same as your page background */
+  border-bottom: none;
+  backdrop-filter: none;     /* remove blur so it looks flat */
+}
+
+  /* no fixed height *
+
+/* Logo scales but never gets huge */
+.global-logo{
+  width: clamp(32px, 6vw, 64px);
+  height: clamp(32px, 6vw, 64px);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Keep the toggle in normal flow (not fixed/absolute) and allow wrapping */
+.mode-switch{
+  position: static;
+  display: inline-flex;
+  align-items: center;
+  padding: clamp(6px, 1.2vw, 10px) clamp(10px, 2vw, 16px);
+  border-radius: .75rem;
+  background: #a7d3da;
+  color: #111;
+  font-weight: 700;
+  line-height: 1.2;
+  font-size: clamp(.9rem, 1.8vw, 1.05rem);
+  white-space: normal;     /* allow label to wrap if needed */
+}
+
+/* At narrow widths (or extreme zoom), put the button on its own row */
+@media (max-width: 800px){
+  .topbar-right{
+    flex: 1 1 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+/* Theme selector names to match your App.js */
+.bright-mode .h1{ color:#111; }
+.night-mode  .h1{ color:#fff; }
+
+
 
 
