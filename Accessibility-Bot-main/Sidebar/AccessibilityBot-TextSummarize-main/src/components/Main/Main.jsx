@@ -53,11 +53,11 @@ const Main = () => {
         {showResult ? (
           <div className="result">
             <div className="result-title">
-              <img src="" alt="" />
+              <img src="" alt="result" />
               <p>{recentPrompt}</p>
             </div>
             <div className="result-data">
-              <img src="" alt="" />
+              <img src="" alt="resultData" />
               {loading ? (
                 <div className="loader">
                   <hr className="animated-bg" />
@@ -94,7 +94,7 @@ const Main = () => {
               {/*<img src={assets.gallery_icon} width={30} alt="" />
               <img src={assets.mic_icon} width={30} alt="" />*/}
               {input ? (
-                <img onClick={() => onSent()} src={assets.send_icon} width={30} alt="" />
+                <img onClick={() => onSent()} src={assets.send_icon} width={30} alt="SendMessage" />
               ) : null}
             </div>
           </div>
