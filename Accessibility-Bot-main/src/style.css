@@ -1,4 +1,7 @@
 /* General Styles */
+:root { --text-zoom: 1; }
+html { font-size: calc(16px * var(--text-zoom)); } /* scales rem text app-wide */
+
 * {
     margin: 0;
     padding: 0;
