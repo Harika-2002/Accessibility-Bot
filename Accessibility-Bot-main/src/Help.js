@@ -3,7 +3,7 @@ import { getAuth } from "firebase/auth"; // Firebase auth
 import { db } from "./firebase"; // Firestore database
 import { collection, addDoc } from "firebase/firestore"; // Firestore methods
 import "./Help.css";
-
+ 
 const HelpPage = () => {
   const [chatMessage, setChatMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]); // Chat history to store messages
@@ -12,23 +12,23 @@ const HelpPage = () => {
   const [username, setUsername] = useState(""); // User's email
   const [error, setError] = useState(null); // Error tracking
   const [rating, setRating] = useState(0); // Star rating
-
+ 
   // Fetch authenticated user's email
   useEffect(() => {
     const auth = getAuth();
     const user = auth.currentUser;
-
+ 
     if (user) {
       setUsername(user.email); // Set username to the user's email
     } else {
       setUsername("Anonymous"); // For non-authenticated users
     }
   }, []);
-
+ 
   // Define rule-based responses
   const getBotResponse = (message) => {
     const lowercasedMessage = message.toLowerCase();
-
+ 
     // Define rules based on common questions, requests, and website features
     if (
       lowercasedMessage.includes("hi") ||
@@ -86,36 +86,43 @@ const HelpPage = () => {
       return "I'm sorry, I don't understand your question. Could you please rephrase?";
     }
   };
-
+ 
   // Handle chat message submission and save chat to Firestore
   const handleChatSubmit = async (e) => {
     e.preventDefault();
-
+    
+    // Check if message is empty
+    const trimmedMessage = chatMessage.trim();
+    if (!trimmedMessage) return;
+ 
     // Add the user's message to the chat history
-    const userMessage = { sender: "user", text: chatMessage };
-    const botResponse = { sender: "bot", text: getBotResponse(chatMessage) };
-
+    const userMessage = { sender: "user", text: trimmedMessage };
+    const botResponse = { sender: "bot", text: getBotResponse(trimmedMessage) };
+ 
     // Update chat history locally
-    setChatHistory([...chatHistory, userMessage, botResponse]);
-
+    const newChatHistory = [...chatHistory, userMessage, botResponse];
+    setChatHistory(newChatHistory);
+ 
     // Save chat history to Firestore
     try {
       await addDoc(collection(db, "chatHistory"), {
         username: username,
-        chat: [...chatHistory, userMessage, botResponse],
+        chat: newChatHistory,
         timestamp: new Date(),
       });
     } catch (error) {
       console.error("Error saving chat to Firestore: ", error);
     }
-
+ 
     // Clear input field
     setChatMessage("");
   };
-
+ 
   // Feedback submission handler
   const handleFeedbackSubmit = async (e) => {
     e.preventDefault();
+    if (!feedback.trim()) return; // Don't submit empty feedback
+    
     try {
       // Submit feedback to Firestore, including star rating
       await addDoc(collection(db, "feedbacks"), {
@@ -134,36 +141,36 @@ const HelpPage = () => {
       );
     }
   };
-
+ 
   // Handle star rating click
   const handleStarClick = (newRating) => {
     setRating(newRating);
   };
-
+ 
   return (
     <div className="help-container">
       <h1>Help & Support</h1>
-
+ 
       {/* FAQ Section */}
       <main>
         <div className="help-box faq-section">
           <h2>Frequently Asked Questions (FAQ)</h2>
           <h2>1. How to change your password?</h2>
           <p className="faq-answer">Go to Your Account Section</p>
-
+ 
           <h2>2. Where do we get a list of Keyboard Shortcuts?</h2>
           <p className="faq-answer">You can just ask the bot or use Ctrl+K</p>
-
+ 
           <h2>3. How to enable dark mode?</h2>
           <p className="faq-answer">
             Click on the "Night Mode" button in the top navigation bar.
           </p>
         </div>
-
+ 
         {/* Chatbot Section */}
         <div className="help-box chatbot-section">
           <h3>Chat with Our Bot</h3>
-
+ 
           {/* Chat History */}
           <div className="chat-history">
             {chatHistory.map((message, index) => (
@@ -177,7 +184,7 @@ const HelpPage = () => {
               </div>
             ))}
           </div>
-
+ 
           {/* Chat Input */}
           <form onSubmit={handleChatSubmit}>
             <textarea
@@ -185,14 +192,18 @@ const HelpPage = () => {
               onChange={(e) => setChatMessage(e.target.value)}
               placeholder="Type your message here"
               className="chat-input"
-              aria-label="Send"
+              aria-label="Type your message to the chatbot"
             />
-            <button type="submit" className="chat-submit-btn">
+            <button
+              type="submit"
+              className="chat-submit-btn"
+              disabled={!chatMessage.trim()}
+            >
               Send
             </button>
           </form>
         </div>
-
+ 
         {/* Feedback Form */}
         <div className="help-box feedback-section">
           <h3>Submit Your Feedback</h3>
@@ -209,33 +220,39 @@ const HelpPage = () => {
                 aria-label="We value your feedback. Please share your thoughts."
                 required
               />
-
+ 
               {/* Star Rating */}
               <div className="star-rating">
                 <p>Rate Us:</p>
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <span
+                  <button
+                    type="button"
                     key={star}
                     className={star <= rating ? "star filled" : "star"}
                     onClick={() => handleStarClick(star)}
+                    aria-label={`${star} ${star > 1 ? 'stars' : 'star'} rating`}
                   >
                     &#9733; {/* Unicode for filled star */}
-                  </span>
+                  </button>
                 ))}
               </div>
-
-              <button type="submit" className="feedback-submit-btn">
+ 
+              <button
+                type="submit"
+                className="feedback-submit-btn"
+                disabled={!feedback.trim()}
+              >
                 Submit Feedback
               </button>
             </form>
           ) : (
             <p className="thank-you-message">Thank you for your feedback!</p>
           )}
-
+ 
           {/* Error message if feedback fails */}
           {error && <p className="error-message">{error}</p>}
         </div>
-
+ 
         {/* Contact Support Section */}
         <div className="help-box contact-support-section">
           <h3>Contact Support</h3>
@@ -256,5 +273,5 @@ const HelpPage = () => {
     </div>
   );
 };
-
+ 
 export default HelpPage;
