@@ -1,0 +1,314 @@
+/* General Styles */
+:root { --text-zoom: 1; }
+html { font-size: calc(16px * var(--text-zoom)); } /* scales rem text app-wide */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* CSS variables used across components */
+:root {
+    --min-padding: 30px;
+    --desktop-form-padding: 50px;
+}
+
+/* App container full height */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure it takes full height */
+}
+
+/* Topbar: contains logo and mode switch (keeps them on same row and allows wrapping) */
+.topbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /* wrap when zoomed or narrow to avoid overlap */
+    gap: 12px;
+    padding: var(--min-padding);
+    z-index: 1001;
+    background: transparent;
+}
+
+.topbar-left { display: flex; align-items: center; }
+.topbar-right { display: flex; align-items: center; margin-left: auto; }
+
+/* Logo styling (in-flow inside .topbar) */
+.global-logo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background-color: white;
+    margin-right: 12px;
+}
+
+/* Mode Switch Button in Top-Right Corner */
+.mode-switch {
+    position: relative; /* in-flow inside .topbar */
+    background-color: #8BC9D1;
+    color: #000000;
+    padding: 8px 12px; /* reduce horizontal padding so the button isn't overly wide */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1001;
+    display: inline-block; /* ensure it sizes to content */
+    width: auto;
+    white-space: nowrap; /* prevent label wrapping which can increase height/width */
+}
+
+.mode-switch:hover {
+    background-color: #06d0e3;
+}
+
+.night-mode .mode-switch {
+    background-color: #34495e;
+    color: #ffffff;
+}
+
+.night-mode .mode-switch:hover {
+    background-color: #4a6c87;
+}
+
+
+/* Full-width container for pages */
+.page-content {
+    flex-grow: 1;
+    padding: 20px;
+    width: 100%;
+    background-color: #FFFFFF;
+}
+
+/* Bright + Night mode base classes */
+.bright-mode {
+    background-color: #D3F3F6;
+    color: #000;
+}
+
+.bright-mode .page-content {
+    background-color: #FFFFFF;
+}
+
+.night-mode {
+    background-color: #1c2833;
+    color: #ecf0f1;
+}
+
+.night-mode .page-content {
+    background-color: #2e4053;
+}
+
+/* Website title styling */
+.website-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #000000; /* Black text color in bright mode */
+    text-align: center;
+    margin-bottom: 20px; /* Add some space below the title */
+}
+
+/* Night title color kept in component CSS to avoid duplication */
+
+/* Sign-up and Login forms styling */
+.signup-form, .login-form {
+    background: rgba(255, 255, 255, 0.9); /* White background in bright mode */
+    padding: 40px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+    box-shadow: 10px 10px 0px #83EAE2, /* L-shaped shadow for bright mode */
+                0px 20px 15px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
+}
+
+/* Sign-up and Login forms styling for night mode */
+.night-mode .signup-form, .night-mode .login-form {
+    background: #2e4053; /* Dark background for forms in night mode */
+    box-shadow: 10px 10px 0px #b0b0b0, /* L-shaped light grey shadow */
+                0px 20px 15px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
+}
+
+/* Input fields */
+.signup-form input, .login-form input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #000; /* Black text color */
+    background-color: #E6F3F6; /* Input background color in bright mode */
+}
+
+/* Input fields in night mode */
+.night-mode input {
+    background-color: #2e4053; /* Dark background for input fields in night mode */
+    color: #ecf0f1; /* Light text color in night mode */
+}
+
+/* Placeholder color */
+.signup-form input::placeholder, .login-form input::placeholder {
+    color: #000000; /* Black placeholder text in bright mode */
+}
+
+.night-mode input::placeholder {
+    color: #b0b0b0; /* Light grey placeholder text in night mode */
+}
+
+/* Buttons */
+.signup-form button, .login-form button {
+    background-color: #8BC9D1;
+    color: #0F0F0F;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.signup-form button:hover, .login-form button:hover {
+    background-color: #06d0e3;
+}
+
+/* Forgot Password and Sign Up Links Styling */
+a, .forgot-password {
+    color: #006699;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+a:hover, .forgot-password:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+/* Night mode links */
+.night-mode a, .night-mode .forgot-password {
+    color: #b0b0b0; /* Light grey link color in night mode */
+}
+
+.night-mode a:hover, .night-mode .forgot-password:hover {
+    color: #6bc78c; /* Green hover color for links in night mode */
+    text-decoration: underline;
+}
+
+/* Feedback messages */
+.feedback {
+    color: #ff6b6b;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+/* Inline field-level error messages (used by login & signup forms) */
+.field-error {
+    color: #cc2f2f;
+    font-size: 14px;
+    margin-top: -8px;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.success-message {
+    color: #6bc78c;
+}
+
+
+/* Responsive adjustments for topbar/logo to avoid overlap at high zoom */
+@media (max-width: 1024px) {
+    .global-logo {
+        width: 72px;
+        height: 72px;
+    }
+}
+
+@media (max-width: 768px) {
+    .topbar {
+        padding: 8px 12px;
+    }
+    .global-logo {
+        width: 64px;
+        height: 64px;
+        margin: 6px 0;
+    }
+    .mode-switch {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+}
+
+/* Make the header stay at the top, but still flow with the page */
+.topbar{
+  position: sticky;     /* not fixed */
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;      /* lets things wrap at high zoom */
+  gap: .75rem 1rem;
+  padding: .5rem 1rem;
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid #e5e7eb;
+         /* same as your page background */
+  border-bottom: none;
+  backdrop-filter: none;     /* remove blur so it looks flat */
+}
+
+  /* no fixed height *
+
+/* Logo scales but never gets huge */
+.global-logo{
+  width: clamp(32px, 6vw, 64px);
+  height: clamp(32px, 6vw, 64px);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Keep the toggle in normal flow (not fixed/absolute) and allow wrapping */
+.mode-switch{
+  position: static;
+  display: inline-flex;
+  align-items: center;
+  padding: clamp(6px, 1.2vw, 10px) clamp(10px, 2vw, 16px);
+  border-radius: .75rem;
+  background: #a7d3da;
+  color: #111;
+  font-weight: 700;
+  line-height: 1.2;
+  font-size: clamp(.9rem, 1.8vw, 1.05rem);
+  white-space: normal;     /* allow label to wrap if needed */
+}
+
+/* At narrow widths (or extreme zoom), put the button on its own row */
+@media (max-width: 800px){
+  .topbar-right{
+    flex: 1 1 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+/* Theme selector names to match your App.js */
+.bright-mode .h1{ color:#111; }
+.night-mode  .h1{ color:#fff; }
+
+
+
+

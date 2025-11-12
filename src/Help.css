@@ -1,0 +1,219 @@
+/* Help Page Styles */
+.help-container {
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+h2, h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+h4 {
+    color: #34495e;
+    margin-top: 15px;
+}
+
+p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+/* Separate box styles for each section */
+.help-box {
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Chatbot Section */
+.chatbot-section .chat-input {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.chatbot-section .chat-submit-btn {
+    background-color: #8BC9D1;
+    color: #262626;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.chatbot-section .chat-submit-btn:hover {
+    background-color: #06d0e3;
+}
+
+/* Feedback Section */
+.feedback-input {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    resize: vertical;
+}
+
+.feedback-submit-btn {
+    background-color: #8BC9D1;
+    color: #262626;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.feedback-submit-btn:hover {
+    background-color: #06d0e3;
+}
+
+.thank-you-message {
+    color: green;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Contact Support Section */
+.contact-support-section {
+    margin-top: 30px;
+}
+
+/* Star rating */
+.star-rating {
+    margin: 10px 0;
+}
+
+.star {
+    font-size: 24px;
+    cursor: pointer;
+    color: #616161;
+}
+
+.star.filled {
+    color: #A35F00;
+}
+
+/* Error message styling */
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+/* Chatbot Chat History */
+.chat-history {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.chat-message {
+    margin: 5px 0;
+    padding: 5px;
+}
+
+.user-message {
+    text-align: right;
+    background-color: #d1e7ff;
+    border-radius: 10px;
+    padding: 8px;
+}
+
+.bot-message {
+    text-align: left;
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    padding: 8px;
+}
+
+/* Night mode styles */
+.night-mode .help-container,
+.night-mode .help-box {
+    background-color: #2e4053;
+    color: #ffffff;
+}
+
+.night-mode h2, 
+.night-mode h3, 
+.night-mode h4 {
+    color: #ffffff;
+}
+
+.night-mode p {
+    color: #dcdcdc;
+}
+
+.night-mode .chatbot-section .chat-input,
+.night-mode .feedback-input {
+    background-color: #34495e;
+    color: #ffffff;
+    border: 1px solid #8bc9d1;
+}
+
+.night-mode .chatbot-section .chat-submit-btn,
+.night-mode .feedback-submit-btn {
+    background-color: #34495e;
+    color: #ffffff;
+}
+
+.night-mode .chatbot-section .chat-submit-btn:hover,
+.night-mode .feedback-submit-btn:hover {
+    background-color: #4a6c87;
+}
+
+.night-mode .thank-you-message {
+    color: #6bc78c;
+}
+
+/* Night mode chat history */
+.night-mode .chat-history {
+    background-color: #34495e;
+    border-color: #8bc9d1;
+}
+
+.night-mode .user-message {
+    background-color: #6c93a1;
+}
+
+.night-mode .bot-message {
+    background-color: #4a6c87;
+}
+
+/* Night mode star rating */
+.night-mode .star {
+    color: #8bc9d1;
+}
+
+.night-mode .star.filled {
+    color: #f39c12;
+}
+
+/* Bright mode color */
+.bright-mode .email-link {
+    color: #15527A;
+  }
+  
+  /* Night mode color */
+  .night-mode .email-link {
+    color: #CEE6F8; 
+  }
+  
