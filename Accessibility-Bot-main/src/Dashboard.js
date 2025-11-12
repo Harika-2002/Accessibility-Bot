@@ -39,8 +39,7 @@ const translations = {
   // Add more languages: es, fr, de, etc.
 };
 
-export default function Dashboard({ showSidebar = true }) {
-  const [isNightMode, setIsNightMode] = useState(false);
+export default function Dashboard({ showSidebar = true, isNightMode = false, onToggleNightMode = () => {} }) {
   const { zoomLevel, zoomIn, zoomOut, resetZoom } = useAccessibility(); // ⬅️ global zoom (default OFF)
   const [isZoomDropdownOpen, setIsZoomDropdownOpen] = useState(false);
   const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false);
@@ -109,10 +108,10 @@ export default function Dashboard({ showSidebar = true }) {
   };
 
   const toggleNightMode = () => {
-    setIsNightMode((s) => !s);
-    announceToScreenReader(
-      !isNightMode ? "Dark mode activated" : "Light mode activated"
-    );
+    // Call parent toggle handler. Announce the new state based on current prop.
+    const willBeDark = !isNightMode;
+    onToggleNightMode();
+    announceToScreenReader(willBeDark ? "Dark mode activated" : "Light mode activated");
   };
 
   const announceToScreenReader = (message) => {

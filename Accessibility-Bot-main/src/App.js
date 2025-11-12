@@ -38,8 +38,8 @@ useEffect(() => {
         setIsNightMode(prevMode => !prevMode);
     };
 
-     // Apply keyboard shortcuts and pass toggleNightMode function
-     useKeyboardShortcuts(toggleNightMode);
+    // Apply keyboard shortcuts and pass toggleNightMode function
+    useKeyboardShortcuts(toggleNightMode);
 
     return (
         <div className={`app-container ${isNightMode ? 'night-mode' : 'bright-mode'}`}>
@@ -64,7 +64,7 @@ useEffect(() => {
                 <Route path="/login" element={<LoginForm isNightMode={isNightMode} />} />
                 
                 {/* Dashboard with Sidebar (Home view) */}
-                <Route path="/dashboard" element={<Dashboard showSidebar={true} isNightMode={isNightMode} />} />
+                <Route path="/dashboard" element={<Dashboard showSidebar={true} isNightMode={isNightMode} onToggleNightMode={() => setIsNightMode((s) => !s)} />} />
                 
                 {/* Help Page */}
                 <Route path="/help" element={<Help />} />
