@@ -10,6 +10,7 @@ import DeleteAccount from './DeleteAccount';
 import TextToSpeech from './TextToSpeech';  
 import SpeechToText from './SpeechToText';  
 import ImageToText from './ImageToText';
+import PdfToText from './pdfToText';
 import SummarizetheText from './SummarizetheText';
 import ParaphraseOrSimpleText from './ParaphraseOrSimpleText';
 import useKeyboardShortcuts from './useKeyboardShortcuts'; // Import the keyboard shortcuts hook
@@ -76,6 +77,8 @@ useEffect(() => {
 
                 {/* Image to Text Page */}
                 <Route path="/image-to-text" element={<ImageToText />} />
+                {/* PDF to Text Page */}
+                <Route path="/pdf-to-text" element={<PdfToText />} />
                 
                 {/* Summarize the Text */}
                 <Route path="/SummarizetheText" element={<SummarizetheText />} />

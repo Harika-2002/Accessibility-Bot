@@ -114,6 +114,20 @@ body, html {
   flex-shrink: 0;
 }
 
+/* Ensure small PNG/SVG icons remain visible on both light and dark backgrounds.
+   Give icons a subtle neutral background and padding in light mode, and a
+   slightly translucent light background in dark mode so white icons contrast. */
+.nav-item img.nav-icon {
+  background-color: rgba(0,0,0,0.06);
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.dashboard.night-mode .nav-item img.nav-icon {
+  /* light translucent background in dark mode to make white icons pop */
+  background-color: rgba(255,255,255,0.06);
+}
+
 .nav-label {
   display: inline-block; /* Changed from none - always show labels for colorblind users */
   font-size: 0.875rem;

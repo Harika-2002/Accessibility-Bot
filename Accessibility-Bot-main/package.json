@@ -25,6 +25,7 @@
     "react-speech-recognition": "^3.10.0",
     "synonyms": "^1.0.1",
     "tesseract.js": "^5.1.1",
+    "pdfjs-dist": "^3.10.111",
     "vitae": "^0.1.0",
     "web-vitals": "^2.1.4"
   },

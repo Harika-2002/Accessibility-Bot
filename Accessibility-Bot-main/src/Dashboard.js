@@ -243,6 +243,7 @@ export default function Dashboard({ showSidebar = true }) {
     if (command.includes("text to speech")) destination = "/text-to-speech";
     if (command.includes("speech to text")) destination = "/speech-to-text";
     if (command.includes("image to text")) destination = "/image-to-text";
+    if (command.includes("PDF to text")) destination = "/pdf-to-text";
     if (command.includes("keyboard shortcuts")) destination = "/keyboardshortcuts";
 
     if (destination) {
@@ -593,6 +594,22 @@ export default function Dashboard({ showSidebar = true }) {
               <div className="content">
                 <span className="title">Image to Text</span>
                 <span className="description">Extract text from images</span>
+              </div>
+            </li>
+                        <li
+              role="button"
+              tabIndex={0}
+              onClick={() => navigate("/PDF-to-text")}
+              onKeyDown={(e) =>
+                handleKeyActivate(e, () => navigate("/PDF-to-text"))
+              }
+            >
+              <span className="icon" aria-hidden="true">
+                <i className="fa-solid fa-file-pdf" aria-hidden="true" />
+              </span>
+              <div className="content">
+                <span className="title">PDF to Text</span>
+                <span className="description">Extract text from PDF file</span>
               </div>
             </li>
             <li
