@@ -5,7 +5,7 @@
   justify-content: center;
   padding: 20px;
   min-height: 100vh; /* Ensure it occupies full height of viewport */
-  color: white;
+  color: #111; /* default text color for light mode */
 }
 
 .textarea-container {
@@ -157,4 +157,68 @@ button:hover {
   background-color: #fff; /* Ensure the background is white */
   color: #333; /* Ensure the text in the input has good contrast */
   border: 1px solid #ccc; /* Optional: Add a border for clarity */
+}
+
+/* Dark mode overrides: when top-level app container uses .night-mode */
+.night-mode .text-to-speech-container {
+  /* Use the requested background color for the TextToSpeech page in dark mode */
+  background-color: #1c2833; /* requested dark background */
+  color: #e6eef6; /* light text color */
+}
+
+.night-mode .text-to-speech-container .text-box {
+  background-color: #111827; /* dark input background */
+  color: #e6eef6; /* light input text */
+  border: 1px solid #374151;
+}
+
+.night-mode .text-to-speech-container .file-info {
+  background-color: #111827;
+  color: #e6eef6;
+  border: 1px solid #374151;
+}
+
+.night-mode .text-to-speech-container .clear-text,
+.night-mode .text-to-speech-container .clear-file {
+  color: #cbd5e1;
+}
+
+.night-mode .text-to-speech-container .controls button {
+  /* Use a stronger, more saturated blue with a clear focus ring for
+     action buttons so they stand out against the dark background. */
+  background-color: #2563eb; /* accessible blue */
+  color: #ffffff;
+  border: 1px solid #1e40af;
+}
+
+.night-mode .text-to-speech-container .controls button:hover {
+  background-color: #1e4fb8; /* darker hover */
+}
+
+.night-mode .text-to-speech-container .controls button:focus-visible {
+  outline: 3px solid rgba(99, 102, 241, 0.32);
+  outline-offset: 2px;
+}
+
+.night-mode .text-to-speech-container input[type="file"] {
+  background-color: #0b63a3;
+  color: #fff;
+  border: 1px solid #134e75;
+}
+
+.night-mode .text-to-speech-container input[type="file"]:focus-visible {
+  outline: 3px solid rgba(59,130,246,0.22);
+  outline-offset: 2px;
+}
+
+.night-mode .text-to-speech-container label {
+  color: #e6eef6;
+}
+
+.night-mode .volume-control {
+  color: #e6eef6;
+}
+
+.night-mode .text-to-speech-container .file-info span {
+  color: #e6eef6;
 }
