@@ -1,0 +1,103 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f2f2f2;
+  }
+  
+  .container {
+    width: 500px;
+    height: 600px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .chatBox {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  
+  /* Hide scrollbar */
+  .chatBox::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .message {
+    max-width: 70%;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+  }
+  
+  .message.user {
+    align-self: flex-end;
+    background-color: #dcf8c6;
+  }
+  
+  .message.bot {
+    align-self: flex-start;
+    background-color: #f1f1f1;
+  }
+  
+  .inputContainer {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    background-color: #f9f9f9;
+  }
+  
+  .input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+  }
+  
+  .sendButton {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .voiceButton {
+    padding: 8px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .voiceButton.active {
+    background-color: #ffddc1;
+  }
+/* ChatBot.css */
+  .sendButton {
+    padding: 8px;
+    border-radius: 50%;
+    border: none;
+    background-color: #4caf50;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .arrowIcon {
+    width: 20px;
+    height: 20px;
+  }

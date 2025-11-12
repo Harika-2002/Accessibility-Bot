@@ -1,0 +1,914 @@
+:root {
+  --primary: #4338ca; /* Improved contrast from #4f46e5 */
+  --primary-hover: #3730a3;
+  --card: #f3f4f6;
+  --text: #1f2937;
+  --bg: #ffffff;
+  --sidebar-bg: #e5e7eb;
+  --zoom: 100%;
+  --transition-speed: 0.3s;
+  --focus-outline: 3px solid #2563eb;
+  --success: #059669;
+  --warning: #d97706;
+  --error: #dc2626;
+  --border: #d1d5db;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+  font-size: calc(14px * (var(--zoom) / 100));
+}
+
+.dashboard.night-mode {
+  --bg: #1f2937;
+  --text: #f3f4f6;
+  --sidebar-bg: #111827;
+  --card: #374151;
+  --border: #4b5563;
+  --primary: #6366f1; /* Better contrast in dark mode */
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--card);
+  border-bottom: 1px solid #d1d5db;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bot-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.dashboard-title {
+  font-size: 1.25rem;
+  margin: 0;
+  color: var(--text); /* Use CSS variable for color */
+}
+
+.hamburger-btn {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Focus indicators for accessibility */
+*:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: 2px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Increased from 0.25rem */
+  cursor: pointer;
+  position: relative;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: background-color var(--transition-speed);
+  min-height: 44px; /* WCAG touch target size */
+}
+
+.nav-item:hover,
+.nav-item:focus-visible {
+  background-color: rgba(79, 70, 229, 0.1);
+}
+
+.nav-item img.nav-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* Ensure small PNG/SVG icons remain visible on both light and dark backgrounds.
+   Give icons a subtle neutral background and padding in light mode, and a
+   slightly translucent light background in dark mode so white icons contrast. */
+.nav-item img.nav-icon {
+  background-color: rgba(0,0,0,0.06);
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.dashboard.night-mode .nav-item img.nav-icon {
+  /* light translucent background in dark mode to make white icons pop */
+  background-color: rgba(255,255,255,0.06);
+}
+
+.nav-label {
+  display: inline-block; /* Changed from none - always show labels for colorblind users */
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+/* Mode indicator badge for colorblind users */
+.mode-indicator {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: 0.25rem;
+  border: 1px solid currentColor;
+}
+
+.zoom-dropdown-content, .account-dropdown {
+  position: absolute;
+  top: 10%;
+  right: 2%;
+  background-color: var(--card);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  border-radius: 6px;
+  min-width: 160px;
+  z-index: 100;
+}
+
+.zoom-dropdown-content div, .account-dropdown div {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.zoom-dropdown-content div:hover, .account-dropdown div:hover {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+.dashboard-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+
+.sidebar {
+  flex-direction: column;
+  width: 200px; /* Reduced from 250px */
+  background-color: transparent; /* Changed from var(--sidebar-bg) */
+  padding: 0.75rem; /* Reduced from 1rem */
+  box-sizing: border-box;
+  flex-shrink: 0;
+  overflow-y: auto;
+  transition: transform var(--transition-speed);
+  gap: 0.6rem; /* Reduced from 0.75rem */
+  border-right: 1px solid var(--border); /* Reduced from 2px */
+}
+
+
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem; /* Reduced from 0.75rem */
+}
+
+.sidebar li {
+  padding: 0.6rem; /* Reduced from 0.75rem */
+  margin-bottom: 0;
+  border-radius: 6px; /* Reduced from 8px */
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  border: 1px solid var(--border); /* Reduced from 2px */
+  font-weight: 500;
+  background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent */
+  backdrop-filter: blur(10px); /* Add blur effect */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Softer shadow */
+  display: flex;
+  align-items: center;
+  gap: 0.6rem; /* Reduced from 0.75rem */
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px; /* Reduced from 4px */
+  background: linear-gradient(to bottom, var(--primary), var(--primary-hover)); /* Gradient */
+  transform: scaleY(0);
+  transition: transform var(--transition-speed);
+}
+
+.sidebar li:hover::before,
+.sidebar li:focus-visible::before {
+  transform: scaleY(1);
+}
+
+.sidebar li:hover,
+.sidebar li:focus-visible {
+  background-color: rgba(255, 255, 255, 0.8); /* Slightly more opaque on hover */
+  color: var(--text);
+  outline: none;
+  border-color: var(--primary);
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(67, 56, 202, 0.15); /* Colored shadow */
+}
+
+.sidebar li.active {
+  background-color: rgba(67, 56, 202, 0.08); /* More transparent */
+  color: var(--primary);
+  border-color: var(--primary);
+  border-left-width: 3px;
+}
+
+.sidebar li .icon {
+  font-size: 1.25rem; /* Reduced from 1.5rem */
+  flex-shrink: 0;
+  width: 28px; /* Reduced from 32px */
+  height: 28px; /* Reduced from 32px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar li .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  text-align: left; /* Ensure left alignment */
+  align-items: flex-start; /* Align items to the start (left) */
+}
+
+.sidebar li .title {
+  font-weight: 600;
+  font-size: 0.813rem; /* Reduced from 0.875rem */
+  line-height: 1.2;
+  text-align: left; /* Explicitly left align title */
+  width: 100%;
+}
+
+.sidebar li .description {
+  font-size: 0.688rem; /* Reduced from 0.75rem */
+  opacity: 0.7;
+  line-height: 1.2;
+  text-align: left; /* Explicitly left align description */
+  width: 100%;
+}
+
+.dashboard.night-mode .sidebar {
+  background-color: transparent;
+  color: white;
+}
+
+.dashboard.night-mode .sidebar li {
+  background-color: rgba(31, 41, 55, 0.5); /* Semi-transparent dark */
+  border-color: rgba(75, 85, 99, 0.5);
+  color: var(--text); /* Ensure text is light colored */
+}
+
+.dashboard.night-mode .sidebar li .title {
+  color: var(--text); /* Light color for titles in dark mode */
+}
+
+.dashboard.night-mode .sidebar li .description {
+  color: var(--text); /* Light color for descriptions in dark mode */
+  opacity: 0.8; /* Slightly more visible in dark mode */
+}
+
+.dashboard.night-mode .sidebar li:hover,
+.dashboard.night-mode .sidebar li:focus-visible {
+  background-color: rgba(55, 65, 81, 0.8);
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+  color: var(--text); /* Maintain light text on hover */
+}
+
+.dashboard.night-mode .sidebar li.active {
+  background-color: rgba(99, 102, 241, 0.15);
+  color: var(--primary); /* Primary color for active state */
+}
+
+.dashboard.night-mode .sidebar li.active .title,
+.dashboard.night-mode .sidebar li.active .description {
+  color: inherit; /* Inherit primary color for active items */
+}
+
+.main-chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.chat-area {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.bot-image-wrapper {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.bot-image {
+  max-width: 280px;
+  width: 80%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.chat-history {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background-color: var(--card);
+}
+
+.chat-msg {
+  margin-bottom: 0.5rem;
+  display: flex;
+}
+
+.chat-msg.user {
+  justify-content: flex-end;
+}
+
+.chat-msg-content {
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.chat-msg.user .chat-msg-content {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+.chat-msg.bot .chat-msg-content {
+  background-color: var(--card);
+  color: var(--text);
+}
+
+.chat-input-box-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem; /* Reduced from 0.5rem */
+}
+
+.chat-input-form {
+  display: flex;
+  gap: 0.3rem; /* Reduced from 0.35rem */
+  background-color: var(--card);
+  padding: 0.3rem; /* Reduced from 0.35rem */
+  border-radius: 0.5rem; /* Reduced from 0.6rem */
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+}
+
+.chat-input-form input[type="text"] {
+  flex: 1;
+  padding: 0.35rem 0.55rem; /* Reduced from 0.4rem 0.6rem */
+  border-radius: 0.35rem; /* Reduced from 0.4rem */
+  border: 1px solid var(--border);
+  background-color: var(--bg);
+  color: var(--text);
+  font-size: 0.875rem;
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+  min-height: 25px; /* Reduced from 36px */
+}
+
+.chat-input-form input[type="text"]:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.icon-btn {
+  background: #83eae2;
+  border: none;
+  border-radius: 0.35rem; /* Reduced from 0.4rem */
+  padding: 0.35rem; /* Reduced from 0.4rem */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-speed);
+  min-width: 20px; /* Reduced from 36px */
+  min-height: 20px; /* Reduced from 36px */
+  position: relative;
+}
+
+.icon-btn:hover {
+  background-color: #31e1f1;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.icon-btn:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: 2px;
+}
+
+/* Add tooltip for icon buttons to help colorblind users */
+.icon-btn::after {
+  content: attr(aria-label);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--text);
+  color: var(--bg);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  margin-bottom: 0.25rem;
+}
+
+.icon-btn:hover::after,
+.icon-btn:focus-visible::after {
+  opacity: 1;
+}
+
+/* Recording indicator with text and visual feedback */
+.voice-btn.recording {
+  background-color: var(--error);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.sr-recording {
+  font-style: italic;
+  margin-top: 0.125rem; /* Reduced from 0.25rem */
+  color: var(--error);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem; /* Added smaller font size */
+}
+
+.sr-recording::before {
+  content: "🔴";
+  display: inline-block;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --primary: #0000ff;
+    --border: #000000;
+  }
+  
+  .dashboard.night-mode {
+    --primary: #00ffff;
+    --border: #ffffff;
+  }
+  
+  .nav-item:hover,
+  .nav-item:focus-visible {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .nav-label {
+    display: inline-block;
+  }
+  
+  .header-controls {
+    gap: 0.5rem;
+  }
+
+  .sidebar {
+    width: 180px; /* Reduced from 200px */
+  }
+
+  .sidebar li {
+    padding: 0.55rem; /* Reduced from 0.6rem */
+    gap: 0.45rem; /* Reduced from 0.5rem */
+  }
+
+  .sidebar li .icon {
+    font-size: 1.125rem; /* Reduced from 1.25rem */
+    width: 26px; /* Reduced from 28px */
+    height: 26px; /* Reduced from 28px */
+  }
+
+  .sidebar li .title {
+    font-size: 0.75rem; /* Reduced from 0.813rem */
+  }
+
+  .sidebar li .description {
+    font-size: 0.625rem; /* Reduced from 0.688rem */
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    padding: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .dashboard-title {
+    font-size: 1rem;
+  }
+
+  .bot-logo {
+    width: 32px;
+    height: 32px;
+  }
+
+  .header-controls {
+    gap: 0.25rem;
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+  }
+
+  .nav-item {
+    padding: 0.375rem;
+    min-height: 40px;
+  }
+
+  .nav-item img.nav-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .nav-label {
+    font-size: 0.75rem;
+  }
+
+  .dashboard-body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    max-height: 0;
+    padding: 0 1rem;
+    transform: translateY(-100%);
+    transition: all var(--transition-speed);
+    overflow: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 9;
+    background-color: var(--bg);
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .sidebar.open {
+    transform: translateY(0);
+    max-height: 70vh;
+    padding: 1rem;
+    overflow-y: auto;
+  }
+
+  .sidebar ul {
+    gap: 0.5rem;
+  }
+
+  .sidebar li {
+    padding: 0.65rem;
+  }
+
+  .sidebar li .icon {
+    font-size: 1.25rem;
+    width: 28px;
+    height: 28px;
+  }
+
+  .main-chat {
+    padding: 0.75rem;
+  }
+
+  .chat-input-form {
+    flex-wrap: wrap;
+  }
+
+  .chat-input-form input[type="text"] {
+    width: 100%;
+    min-width: 100%;
+    margin-bottom: 0.25rem;
+  }
+
+  .chat-input-form button {
+    flex: 1;
+    min-width: calc(50% - 0.15rem);
+  }
+
+  .hamburger-btn {
+    display: block;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .zoom-dropdown-content, .account-dropdown {
+    right: 0;
+    left: auto;
+    min-width: 140px;
+  }
+
+  .chat-history {
+    max-height: 250px;
+  }
+
+  .error-message,
+  .success-message {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-header {
+    padding: 0.375rem;
+  }
+
+  .header-left {
+    gap: 0.375rem;
+  }
+
+  .dashboard-title {
+    font-size: 0.875rem;
+  }
+
+  .bot-logo {
+    width: 28px;
+    height: 28px;
+  }
+
+  .hamburger-btn {
+    font-size: 1.25rem;
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .nav-item {
+    padding: 0.25rem;
+    min-height: 36px;
+    gap: 0.25rem;
+  }
+
+  .nav-item img.nav-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .nav-label {
+    font-size: 0.688rem;
+  }
+
+  .sidebar li {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .sidebar li .icon {
+    font-size: 1.125rem;
+    width: 24px;
+    height: 24px;
+  }
+
+  .sidebar li .title {
+    font-size: 0.75rem;
+  }
+
+  .sidebar li .description {
+    font-size: 0.625rem;
+  }
+
+  .main-chat {
+    padding: 0.5rem;
+  }
+
+  .chat-area {
+    margin-bottom: 0.75rem;
+  }
+
+  .chat-history {
+    max-height: 200px;
+    padding: 0.375rem;
+  }
+
+  .chat-msg-content {
+    padding: 0.375rem 0.5rem;
+    font-size: 0.875rem;
+    max-width: 85%;
+  }
+
+  .chat-input-form {
+    padding: 0.25rem;
+    gap: 0.25rem;
+  }
+
+  .chat-input-form input[type="text"] {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.813rem;
+    min-height: 32px;
+  }
+
+  .icon-btn {
+    min-width: 32px;
+    min-height: 32px;
+    padding: 0.3rem;
+  }
+
+  .icon-btn img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .zoom-dropdown-content, .account-dropdown {
+    min-width: 120px;
+    font-size: 0.813rem;
+  }
+
+  .zoom-dropdown-content div, .account-dropdown div {
+    padding: 0.375rem 0.75rem;
+  }
+}
+
+/* Landscape mobile devices */
+@media (max-width: 768px) and (orientation: landscape) {
+  .sidebar.open {
+    max-height: 50vh;
+  }
+
+  .chat-history {
+    max-height: 150px;
+  }
+}
+
+/* Large desktop screens */
+@media (min-width: 1440px) {
+  .sidebar {
+    width: 220px; /* Reduced from 280px */
+  }
+
+  .sidebar li {
+    padding: 0.75rem; /* Reduced from 0.875rem */
+  }
+
+  .sidebar li .icon {
+    font-size: 1.5rem; /* Reduced from 1.75rem */
+    width: 32px; /* Reduced from 36px */
+    height: 32px; /* Reduced from 36px */
+  }
+
+  .sidebar li .title {
+    font-size: 0.875rem; /* Reduced from 0.938rem */
+  }
+
+  .sidebar li .description {
+    font-size: 0.75rem; /* Reduced from 0.813rem */
+  }
+
+  .main-chat {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+/* Ultra-wide screens */
+@media (min-width: 1920px) {
+  .dashboard-body {
+    max-width: 1920px;
+    margin: 0 auto;
+  }
+
+  .sidebar {
+    width: 240px; /* Reduced from 320px */
+  }
+}
+
+/* Touch devices - ensure proper touch targets */
+@media (pointer: coarse) {
+  .nav-item,
+  .sidebar li,
+  .icon-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .chat-input-form button {
+    min-height: 44px;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Ensure welcome text is visible in dark mode */
+.welcome-text {
+  color: var(--text);
+  font-size: 1rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Ensure all text inputs are visible in dark mode */
+.dashboard.night-mode .chat-input-form input[type="text"] {
+  color: var(--text);
+  background-color: var(--card);
+}
+
+.dashboard.night-mode .chat-input-form input[type="text"]::placeholder {
+  color: rgba(243, 244, 246, 0.5); /* Light placeholder in dark mode */
+}
+
+/* Ensure error and success messages are visible */
+.dashboard.night-mode .error-message {
+  background-color: rgba(220, 38, 38, 0.2);
+  color: #fca5a5; /* Lighter red for dark mode */
+}
+
+.dashboard.night-mode .success-message {
+  background-color: rgba(5, 150, 105, 0.2);
+  color: #6ee7b7; /* Lighter green for dark mode */
+}
+
+/* Ensure dropdown text is visible in dark mode */
+.dashboard.night-mode .zoom-dropdown-content,
+.dashboard.night-mode .account-dropdown {
+  background-color: var(--card);
+  color: var(--text);
+}
+
+.dashboard.night-mode .zoom-dropdown-content div,
+.dashboard.night-mode .account-dropdown div {
+  color: var(--text);
+}
+
+.dashboard.night-mode .dashboard-header {
+  background-color: var(--card);
+  border-bottom: 1px solid var(--border);
+}
+
+.dashboard.night-mode .dashboard-title {
+  color: var(--text); /* Ensure title is light in dark mode */
+}

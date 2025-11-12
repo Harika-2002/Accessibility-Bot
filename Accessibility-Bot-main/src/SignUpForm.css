@@ -1,0 +1,219 @@
+/* Signup / Login page specific styles moved from global style.css
+   This file scopes layout, spacing, RTL corrections and responsive
+   tweaks for the registration/login forms. */
+
+.signup-container, .login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #D3F3F6;
+  margin: 0;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.website-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #000000;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Ensure the website title is visible in night/dark mode */
+.night-mode .website-title {
+  color: #FFFFFF;
+}
+
+.signup-form h2 {
+  font-size: 22px;
+  margin: 0 0 22px 0;
+  padding: 0 30px;
+  line-height: 1.25;
+  word-break: break-word;
+  text-align: center;
+}
+
+.signup-form label {
+  display: block;
+  text-align: left;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.signup-form input, .signup-form select, .signup-form textarea {
+  font-size: 16px;
+  padding: 30px;
+  text-align: left;
+}
+
+.signup-form[dir="rtl"] {
+  direction: rtl;
+}
+.signup-form[dir="rtl"] label {
+  text-align: right;
+}
+
+.signup-footer {
+  margin-top: 22px;
+  text-align: center;
+  font-size: 15px;
+}
+.signup-form p {
+  margin-top: 16px;
+  font-size: 15px;
+  color: #0b3940; /* dark teal for readability on light backgrounds */
+}
+
+.signup-form p a {
+  color: #0b6f79;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* Ensure the 'Already have an account? Login here' text and link are visible in night/dark mode */
+.night-mode .signup-form p {
+  color: #ecf0f1; /* light text for dark background */
+}
+.night-mode .signup-form p a {
+  color: #ffffff; /* make the link pop in night mode */
+  text-decoration: underline dotted;
+  font-weight: 700;
+}
+.night-mode .signup-form p a:focus,
+.night-mode .signup-form p a:hover {
+  color: #ffd166; /* accent on hover/focus to aid discovery */
+  outline: none;
+}
+.signup-form[dir="rtl"] input,
+.signup-form[dir="rtl"] textarea,
+.signup-form[dir="rtl"] select {
+  text-align: right;
+}
+
+/* Core form panel */
+.signup-form, .login-form {
+  background: rgba(255, 255, 255, 0.95);
+  padding: var(--desktop-form-padding);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 520px;
+  margin: auto;
+  text-align: left;
+  box-shadow: 10px 10px 0px #83EAE2,
+        0px 20px 15px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.night-mode .signup-form, .night-mode .login-form {
+  background: #2e4053;
+  box-shadow: 10px 10px 0px #b0b0b0,
+        0px 20px 15px rgba(0, 0, 0, 0.2);
+}
+
+.signup-form input, .login-form input {
+  width: 100%;
+  padding: 30px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #000;
+  background-color: #E6F3F6;
+}
+
+/* Small layout for the show-password checkbox and label */
+.show-password {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px; /* ensure checkbox appears below the input */
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+.show-password input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+
+.night-mode input {
+  background-color: #2e4053;
+  color: #ecf0f1;
+}
+
+.signup-form input::placeholder, .login-form input::placeholder {
+  color: #000000;
+}
+
+.night-mode input::placeholder {
+  color: #b0b0b0;
+}
+
+.signup-form button, .login-form button {
+  background-color: #8BC9D1;
+  color: #0F0F0F;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.signup-form button:hover, .login-form button:hover {
+  background-color: #06d0e3;
+}
+
+.feedback {
+  color: #ff6b6b;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.success-message {
+  color: #6bc78c;
+}
+
+/* Align placeholder text to the right for RTL languages */
+.signup-form[dir="rtl"] input::placeholder,
+.signup-form[dir="rtl"] textarea::placeholder,
+.signup-form[dir="rtl"] select::placeholder {
+  text-align: right;
+}
+
+/* Small-screen tweaks specific to signup/login forms */
+@media (max-width: 768px) {
+  .signup-container,
+  .login-container {
+    margin-top: 20px;
+    padding-top: 30px;
+    height: auto;
+  }
+
+  .signup-form,
+  .login-form {
+    margin-top: 8px;
+    padding: 30px; /* smaller padding on small screens but still roomy for translations */
+  }
+
+  .signup-container, .login-container {
+    padding-top: 30px;
+  }
+
+  /* On very small devices, let the form fill available width visually */
+  @media (max-width: 420px) {
+    .signup-form, .login-form {
+      padding: 30px;
+    }
+  }
+}

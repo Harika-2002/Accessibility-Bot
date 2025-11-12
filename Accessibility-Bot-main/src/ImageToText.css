@@ -1,0 +1,95 @@
+.image-to-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  min-height: 100vh; /* Full height of the viewport */
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 12px;
+}
+.page-title {
+  flex: 1;
+  font-size: 24px;
+  color: #083d3d;
+}
+.page-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.image-to-text-container h1 {
+  color: #6e67d4;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+input[type="file"] {
+  margin-bottom: 20px;
+}
+
+/* Content wrapper keeps image and extracted text aligned and constrained */
+.content {
+  width: 100%;
+  max-width: 1000px; /* match header max width for visual consistency */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.uploaded-image {
+  width: 100%; /* make the image fill the content wrapper width */
+  height: auto;
+  max-height: 70vh; /* constrain very tall images */
+  object-fit: contain;
+  margin-bottom: 10px;
+  /* visual border and polish */
+  border: 4px solid #083d3d; /* solid border to clearly frame the image */
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(8, 61, 61, 0.06);
+  background-color: #ffffff; /* ensures border contrast on pale backgrounds */
+}
+
+.cancel-button {
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #e63946;
+}
+
+.progress {
+  margin-top: 10px;
+}
+
+.extracted-text,
+.image-description {
+  margin-top: 20px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.extracted-text h3,
+.image-description h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
