@@ -1,76 +1,73 @@
 import React, { useState } from "react";
-import Tesseract from "tesseract.js"; // Import Tesseract for text extraction
+import Tesseract from "tesseract.js";
 import "./ImageToText.css";
 
-
 const ImageToText = () => {
-  const [image, setImage] = useState(null); // Stores the selected image URL
-  const [text, setText] = useState(""); // Stores the extracted text
-  const [progress, setProgress] = useState(0); // Tracks the progress of extraction
-  const [isExtracting, setIsExtracting] = useState(false); // Indicates if text extraction is in progress
-  const [fileInputKey, setFileInputKey] = useState(Date.now()); // Tracks key for resetting file input
+  const [image, setImage] = useState(null);
+  const [text, setText] = useState("");
+  const [progress, setProgress] = useState(0);
+  const [isExtracting, setIsExtracting] = useState(false);
+  const [statusMessage, setStatusMessage] = useState(""); // ✅ Added: clear text feedback
+  const [fileInputKey, setFileInputKey] = useState(Date.now());
 
-  // Handle image file upload
   const handleImageUpload = (e) => {
-    const file = e.target.files[0]; // Get the selected file
+    const file = e.target.files[0];
     if (file) {
-      setImage(URL.createObjectURL(file)); // Create an object URL for the image preview
-      extractTextFromImage(file); // Extract text from the uploaded image
+      setImage(URL.createObjectURL(file));
+      extractTextFromImage(file);
     }
   };
 
-  // Extract text from the uploaded image using Tesseract
   const extractTextFromImage = (file) => {
-    setIsExtracting(true); // Set extracting state to true
-    setText(""); // Clear any previous text
-    setProgress(0); // Reset progress
+    setIsExtracting(true);
+    setText("");
+    setProgress(0);
+    setStatusMessage("🔄 Extracting text from image... Please wait."); // ✅ Accessible status
 
     Tesseract.recognize(file, "eng", {
       logger: (m) => {
         if (m.status === "recognizing text") {
-          setProgress(Math.round(m.progress * 100)); // Update progress
+          setProgress(Math.round(m.progress * 100));
         }
       },
     })
       .then(({ data: { text } }) => {
-        setText(text); // Set the extracted text
-        setIsExtracting(false); // Set extracting state to false
+        setText(text);
+        setIsExtracting(false);
+        setStatusMessage("✅ Text extraction complete!"); // ✅ Meaningful text message
       })
       .catch((error) => {
         console.error("Error extracting text:", error);
-        setIsExtracting(false); // Handle errors and stop extracting
+        setIsExtracting(false);
+        setStatusMessage("❌ Error: Unable to extract text. Please try another image."); // ✅ Accessible error feedback
       });
   };
 
-  // Cancel the current image and reset everything
   const handleCancel = () => {
-    setImage(null); // Remove the image preview
-    setText(""); // Clear the extracted text
-    setProgress(0); // Reset progress
-    setFileInputKey(Date.now()); // Reset file input field to allow re-upload
+    setImage(null);
+    setText("");
+    setProgress(0);
+    setFileInputKey(Date.now());
+    setStatusMessage("ℹ️ Upload canceled. You can select a new image."); // ✅ Clear feedback
   };
 
   return (
-    <div className={`image-to-text-container`}>
+    <div className="image-to-text-container">
       <header className="page-header">
         <h1 className="page-title">Image to Text Converter</h1>
-        <div className="page-actions">
-          {/* Night mode handled at top-level app in other pages; local toggle kept simple */}
-        </div>
       </header>
+
       <main>
         <div className="content">
-          {/* File input to select an image */}
           <input
-            key={fileInputKey} // Reset file input when necessary
+            key={fileInputKey}
             type="file"
             accept="image/*"
             onChange={handleImageUpload}
-            disabled={isExtracting} // Disable input while extracting
+            disabled={isExtracting}
             aria-label="Upload an image to extract text"
           />
 
-          {/* Display image preview and cancel button if an image is uploaded */}
           {image && (
             <div className="image-preview">
               <img src={image} alt="Uploaded" className="uploaded-image" />
@@ -78,20 +75,41 @@ const ImageToText = () => {
                 className="cancel-button"
                 onClick={handleCancel}
                 aria-label="Retry another image"
+                style={{
+                  backgroundColor: "#005fcc",
+                  color: "white",
+                  padding: "8px 12px",
+                  borderRadius: "6px",
+                  border: "none",
+                  cursor: "pointer",
+                }}
               >
                 Retry another image
               </button>
             </div>
           )}
 
-          {/* Show progress while extracting text */}
           {isExtracting && (
-            <div className="progress">
+            <div className="progress" role="status" aria-live="polite">
               <p>Extracting... {progress}%</p>
             </div>
           )}
 
-          {/* Display the extracted text */}
+          {/* ✅ Accessible status feedback */}
+          <div
+            role="status"
+            aria-live="polite"
+            className={`feedback ${
+              statusMessage.includes("✅")
+                ? "success"
+                : statusMessage.includes("❌")
+                ? "error"
+                : ""
+            }`}
+          >
+            {statusMessage}
+          </div>
+
           <div className="extracted-text">
             <h2>Extracted Text:</h2>
             <p>{text || "Text will appear here after extraction."}</p>

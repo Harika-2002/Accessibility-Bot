@@ -5,33 +5,38 @@ function ViewAccountInfo(props) {
 	const [userId, setUserId] = useState('');
 	const [email, setEmail] = useState('');
 	const [name, setName] = useState('');
+	const [status, setStatus] = useState(''); // ✅ new: track status message
 
 	useEffect(() => {
-		// Try to fetch UserID from session storage (adjust key to match your auth code)
 		const sid = sessionStorage.getItem('userId') || sessionStorage.getItem('user_id') || '';
 		if (sid) setUserId(sid);
 
-		// Try to retrieve username from session storage (multiple possible keys)
 		const sessUsername = sessionStorage.getItem('username') || sessionStorage.getItem('userName') || sessionStorage.getItem('name') || '';
 		if (sessUsername) setName(sessUsername);
 
-		// Optionally fetch other user details from session or API
 		const sessEmail = sessionStorage.getItem('email') || '';
 		if (sessEmail) setEmail(sessEmail);
 	}, []);
 
 	const handleUpdate = (e) => {
 		e.preventDefault();
-		// ...existing update logic (send name/email changes to backend) ...
+
+		// Example of mock update logic:
+		if (email && name) {
+			// success case
+			setStatus('✅ Account updated successfully');
+		} else {
+			// error case
+			setStatus('❌ Please fill out all required fields');
+		}
 	};
 
 	return (
 		<div className="view-account page-content">
 			<div className="account-info-container">
-				<h2 className="account-title">View and update account information</h2>
+				<h2 id="account-title" className="account-title">View and update account information</h2>
 
 				<form className="account-info-form" onSubmit={handleUpdate} aria-labelledby="account-title">
-					{/* User ID: readonly, fetched from session */}
 					<label htmlFor="user-id">User ID</label>
 					<input
 						id="user-id"
@@ -42,7 +47,6 @@ function ViewAccountInfo(props) {
 						aria-readonly="true"
 					/>
 
-					{/* Username field (editable, prefilled from session or API) */}
 					<label htmlFor="name">Username</label>
 					<input
 						id="name"
@@ -54,7 +58,6 @@ function ViewAccountInfo(props) {
 						aria-label="Username"
 					/>
 
-					{/* Email field */}
 					<label htmlFor="email">Email ID</label>
 					<input
 						id="email"
@@ -67,8 +70,13 @@ function ViewAccountInfo(props) {
 
 					<button type="submit">Update Account</button>
 
-					{/* feedback placeholder */}
-					<div role="status" aria-live="polite" className="feedback" />
+					<div
+						role="status"
+						aria-live="polite"
+						className={`feedback ${status.includes('✅') ? 'success' : status.includes('❌') ? 'error' : ''}`}
+					>
+						{status}
+					</div>
 				</form>
 			</div>
 		</div>
