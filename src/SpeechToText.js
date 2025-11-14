@@ -1,50 +1,73 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FaMicrophone } from "react-icons/fa";
 import "./SpeechToText.css";
 
 const SpeechToText = () => {
-  const [text, setText] = useState("");          
-  const [isListening, setIsListening] = useState(false); 
+  const [text, setText] = useState("");
+  const [isListening, setIsListening] = useState(false);
 
-  // Check if the browser supports SpeechRecognition
-  const SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
-  const recognition = new SpeechRecognition();
-  recognition.continuous = false;
-  recognition.interimResults = false;
-  recognition.lang = "en-US";
+  const recognitionRef = useRef(null);
 
-  // Handle starting and stopping the speech recognition
-  const handleListen = () => {
-    if (isListening) {
-      recognition.stop();
-      setIsListening(false);
-    } else {
-      recognition.start();
-      setIsListening(true);
+  // Initialize SpeechRecognition only once
+  const initRecognition = () => {
+    if (!recognitionRef.current) {
+      const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+
+      if (!SpeechRecognition) {
+        alert("Speech Recognition is not supported in this browser.");
+        return null;
+      }
+
+      const rec = new SpeechRecognition();
+      rec.continuous = false;
+      rec.interimResults = false;
+      rec.lang = "en-US";
+
+      rec.onresult = (event) => {
+        const transcript = Array.from(event.results)
+          .map((result) => result[0].transcript)
+          .join("");
+        setText(transcript);
+        setIsListening(false);
+      };
+
+      rec.onerror = (event) => {
+        console.error("Speech recognition error:", event.error);
+        setIsListening(false);
+      };
+
+      recognitionRef.current = rec;
     }
-
-    recognition.onresult = (event) => {
-      const speechToText = Array.from(event.results)
-        .map((result) => result[0].transcript)
-        .join("");
-      setText(speechToText);
-      setIsListening(false);
-    };
-
-    recognition.onerror = (event) => {
-      console.error("Error occurred in speech recognition:", event.error);
-      setIsListening(false);
-    };
+    return recognitionRef.current;
   };
 
-  // Handle downloading the text as a file
+  const handleListen = async () => {
+    const rec = initRecognition();
+    if (!rec) return;
+
+    // Request mic permission explicitly
+    try {
+      await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (err) {
+      alert("Microphone permission denied.");
+      return;
+    }
+
+    if (isListening) {
+      rec.stop();
+      setIsListening(false);
+    } else {
+      rec.start();
+      setIsListening(true);
+    }
+  };
+
   const handleDownload = () => {
     const element = document.createElement("a");
     const file = new Blob([text], { type: "text/plain" });
     element.href = URL.createObjectURL(file);
     element.download = "speech-to-text.txt";
-    document.body.appendChild(element);
     element.click();
   };
 
@@ -61,27 +84,21 @@ const SpeechToText = () => {
             className={isListening ? "mic-listening" : "mic-idle"}
             style={{
               cursor: "pointer",
-              // RED when listening, BLUE when idle
               color: isListening ? "#d32f2f" : "#1976d2",
             }}
-            aria-label={
-              isListening ? "Stop listening" : "Start listening"
-            }
+            aria-label={isListening ? "Stop listening" : "Start listening"}
             aria-pressed={isListening}
           />
           <p>
-            {isListening
-              ? "Listening..."
-              : "Click the microphone and start speaking"}
+            {isListening ? "Listening..." : "Click the microphone to start speaking"}
           </p>
         </div>
 
         <textarea
           className="text-box"
-          placeholder="Your speech will be converted to text here"
+          placeholder="Your speech will be converted here"
           value={text}
           readOnly
-          aria-label="Your speech will be converted to text here"
         />
 
         {text && (
