@@ -4,7 +4,7 @@ import * as pdfjsLib from "pdfjs-dist";
 import { GlobalWorkerOptions } from "pdfjs-dist/build/pdf";
 import "./TextToSpeech.css";
 
-// ✅ Correct worker setup for Create React App
+// Correct worker setup for Create React App
 GlobalWorkerOptions.workerSrc = `${process.env.PUBLIC_URL}/pdf.worker.min.js`;
 
 const TextToSpeech = () => {
@@ -167,24 +167,47 @@ const TextToSpeech = () => {
         </div>
 
         <div className="controls">
+          {/* Green button when ready, grey when disabled */}
           <button
             onClick={handleSpeak}
             disabled={isSpeaking && !isPaused}
             aria-label="Convert text to speech"
+            style={{
+              backgroundColor:
+                isSpeaking && !isPaused ? "#9e9e9e" : "#2e7d32",
+              color: "#ffffff",
+            }}
           >
             Convert to Speech
           </button>
 
+          {/* Red for pause, blue for resume */}
           {(isSpeaking || isPaused) && (
             <button
               onClick={handleTogglePauseResume}
               aria-label={isPaused ? "Resume speech" : "Pause speech"}
+              aria-pressed={isPaused}
+              style={{
+                backgroundColor: isPaused ? "#1976d2" : "#d32f2f",
+                color: "#ffffff",
+              }}
             >
               {isPaused ? <FaPlay /> : <FaPause />}
+              <span style={{ marginLeft: 6 }}>
+                {isPaused ? "Resume" : "Pause"}
+              </span>
             </button>
           )}
 
-          <button onClick={handleStop} aria-label="Stop speech">
+          {/* Stop button – dark grey */}
+          <button
+            onClick={handleStop}
+            aria-label="Stop speech"
+            style={{
+              backgroundColor: "#424242",
+              color: "#ffffff",
+            }}
+          >
             Stop
           </button>
         </div>

@@ -3,8 +3,8 @@ import { FaMicrophone } from "react-icons/fa";
 import "./SpeechToText.css";
 
 const SpeechToText = () => {
-  const [text, setText] = useState(""); // Store the converted speech to text
-  const [isListening, setIsListening] = useState(false); // Manage listening state
+  const [text, setText] = useState("");          
+  const [isListening, setIsListening] = useState(false); 
 
   // Check if the browser supports SpeechRecognition
   const SpeechRecognition =
@@ -29,11 +29,12 @@ const SpeechToText = () => {
         .map((result) => result[0].transcript)
         .join("");
       setText(speechToText);
-      setIsListening(false); // Stop listening after capturing speech
+      setIsListening(false);
     };
 
     recognition.onerror = (event) => {
       console.error("Error occurred in speech recognition:", event.error);
+      setIsListening(false);
     };
   };
 
@@ -49,7 +50,6 @@ const SpeechToText = () => {
 
   return (
     <div className="speech-to-text-container">
-      {/* <h1>Speech to Text Converter</h1> */}
       <header>
         <h1 className="h1">Speech to Text Converter</h1>
       </header>
@@ -59,7 +59,15 @@ const SpeechToText = () => {
             onClick={handleListen}
             size={50}
             className={isListening ? "mic-listening" : "mic-idle"}
-            style={{ cursor: "pointer" }}
+            style={{
+              cursor: "pointer",
+              // RED when listening, BLUE when idle
+              color: isListening ? "#d32f2f" : "#1976d2",
+            }}
+            aria-label={
+              isListening ? "Stop listening" : "Start listening"
+            }
+            aria-pressed={isListening}
           />
           <p>
             {isListening
