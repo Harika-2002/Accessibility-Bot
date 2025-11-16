@@ -1,0 +1,175 @@
+:root {
+  --header-height: 84px;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Constrain overall app size so it appears smaller on large desktop screens */
+/* centered with whitespace around it */
+.app.app-constrained {
+  max-width: 1200px; /* reduce width on large monitors */
+  margin: 12px auto; /* center horizontally with small vertical gap */
+  max-height: 90vh; /* shrink vertically so page doesn't fill full height */
+  border-radius: 8px;
+  overflow: hidden; /* keep internal scrolling inside .main */
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+}
+
+/* If you want to apply the constrained layout by default, add the app-constrained class
+   to the root .app element in App.jsx. We apply it via CSS only so you can toggle it.
+*/
+
+@media (max-width: 1024px) {
+  .app.app-constrained { max-width: 100%; margin: 0; box-shadow: none; border-radius: 0; max-height: none }
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  background: #d3f3f6;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  height: var(--header-height);
+  box-sizing: border-box;
+}
+
+.app-header .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app-header .brand img {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* Theme-aware logo border: blue in light mode, red in dark mode. Using box-sizing so border doesn't push layout. */
+.app-header .brand img {
+  box-sizing: border-box;
+  transition: border-color 140ms ease, box-shadow 140ms ease, transform 120ms ease;
+}
+
+/* Light theme: blue border around logo */
+.light-mode .app-header .brand img {
+  border: 3px solid #007BFF;
+  box-shadow: 0 6px 16px rgba(0,123,255,0.08);
+}
+
+/* Dark theme: red border around logo */
+.dark-mode .app-header .brand img {
+  border: 3px solid #ff4d4d;
+  box-shadow: 0 6px 16px rgba(255,77,77,0.08);
+}
+
+.app-header .brand strong {
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 800;
+  color: #072b2b; /* stronger brand color to improve contrast */
+}
+
+.theme-toggle-btn {
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.12);
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 22px;
+  min-width: 56px;
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 120ms ease, background-color 120ms ease;
+}
+
+.theme-toggle-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(6, 38, 38, 0.08);
+  transform: translateY(-1px);
+}
+
+/* Dark mode header text contrast */
+.dark-mode .app-header .brand strong {
+  color: #e6f6f6; /* light, high-contrast text for dark header */
+}
+
+/* Make the emoji/icon inside the button slightly larger in dark mode too */
+.dark-mode .theme-toggle-btn {
+  font-size: 24px;
+}
+
+.app-body {
+  display: flex;
+  flex: 1;
+  align-items: stretch;
+}
+
+/* Main occupies full width since sidebar was removed */
+.app-body .main {
+  flex: 1 1 100%;
+  width: 100%;
+  min-width: 0;
+  height: calc(100vh - var(--header-height));
+  overflow: auto;
+}
+
+/* Responsive tweaks */
+@media (max-width: 1024px) {
+  .app-header { padding: 10px 12px }
+}
+
+@media (max-width: 768px) {
+  .app-header { height: auto; padding: 10px }
+  .app-body { flex-direction: column }
+  .app-body .main { height: auto }
+}
+
+/* Dark-mode overrides when .dark-mode is present on root .app */
+.dark-mode .app-header {
+  background: #0e0b0be5;
+  color: #fff;
+  border-bottom-color: rgba(255,255,255,0.06);
+}
+
+.dark-mode .theme-toggle-btn {
+  /* make the toggle more visible in dark mode with a solid white border */
+  border: 2px solid #ffffff;
+  color: #fff;
+  background: rgba(255,255,255,0.03);
+}
+
+.dark-mode .theme-toggle-btn:hover {
+  border-color: #ffffff;
+  background: rgba(255,255,255,0.06);
+}
+
+.dark-mode .theme-toggle-btn:focus {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.12);
+}
+
+/* Light (white) theme: use a solid black border for the toggle for maximum visibility */
+.light-mode .theme-toggle-btn {
+  border: 2px solid #000000;
+  color: #000;
+  background: rgba(0,0,0,0.02);
+}
+
+.light-mode .theme-toggle-btn:hover {
+  background: rgba(0,0,0,0.04);
+  border-color: #000000;
+}
+
+.light-mode .theme-toggle-btn:focus {
+  box-shadow: 0 0 0 4px rgba(0,0,0,0.08);
+}

@@ -1,36 +1,42 @@
 /* Sidebar container */
 .sidebar {
-    width: 200px;
+    /* Sidebar content styling — parent controls the column width */
     display: flex;
     flex-direction: column;
     background-color: #d3f3f6; /* Light blue background */
-    padding: 20px;
-    height: 100vh;
-    position: flex;
-    align-items: center; /* Align items to center for the logo */
+    padding: 16px;
+    box-sizing: border-box;
+    align-items: flex-start; /* align start for menu items */
 }
 
 /* Bot Image/Logo */
 .sidebar-logo {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .bot-logo {
-    width: 80px; /* Adjust size as needed */
-    height: auto;
-    border-radius: 50%; /* If you want a circular image */
+    width: 72px; /* Adjust size as needed */
+    height: 72px;
+    object-fit: cover;
+    border-radius: 12px; /* subtle rounding for header/logo visuals */
 }
 
 /* Sidebar items */
 .sidebar-item {
     width: 100%;
-    padding: 15px 10px;
+    padding: 12px 12px;
     margin-bottom: 10px;
     background-color: #fff;
     text-align: left;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.2s, transform 0.12s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .sidebar-item p {
@@ -42,4 +48,20 @@
 /* Hover effect for sidebar items */
 .sidebar-item:hover {
     background-color: #bbdefb;
+    transform: translateX(4px);
 }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        padding: 10px;
+        flex-direction: row;
+        gap: 8px;
+    }
+    .sidebar-item {
+        min-width: 120px;
+        margin-bottom: 0;
+    }
+    .sidebar-item p { font-size: 14px }
+}
+

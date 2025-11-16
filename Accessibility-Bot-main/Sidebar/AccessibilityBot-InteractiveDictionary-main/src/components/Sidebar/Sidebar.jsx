@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import './Sidebar.css';
-import { assets } from '../../assets/assets'; // Assuming assets has the bot image or logo
+import { assets } from '../../assets/assets'; // optional assets
 import { Context } from '../../context/Context';
-import logo from '../Sidebar/bot.jpeg'
 
 const Sidebar = () => {
-    const { onSent, prevPrompts, setRecentPrompt, newChat } = useContext(Context);
+    const { onSent, prevPrompts, setRecentPrompt, newChat, darkMode } = useContext(Context);
 
     // Function to handle prompts loading
     const loadPrompt = async (prompt) => {
@@ -14,11 +13,7 @@ const Sidebar = () => {
     };
 
     return (
-        <div className="sidebar">
-            {/* Bot Image/Logo at the Top */}
-            <div className="sidebar-logo">
-                <img src={logo} alt="Bot Logo" className="bot-logo" />
-            </div>
+        <div className={`sidebar ${darkMode ? 'dark-mode' : ''}`}>
 
             {/* Sidebar Menu Items }
             <div className="sidebar-item" onClick={() => loadPrompt('Text to Speech')}>

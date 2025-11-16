@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import './Main.css';
 import { assets } from '../../assets/assets';
 import { Context } from '../../context/Context';
@@ -13,38 +13,34 @@ const Main = () => {
     resultData,
     setInput,
     input,
+    darkMode,
+    toggleDarkMode
   } = useContext(Context);
 
-  // State to manage the dark/light mode
-  const [darkMode, setDarkMode] = useState(false);
-
-  // Function to toggle between light and dark mode
-  const toggleMode = () => {
-    setDarkMode((prevMode) => !prevMode);
+  // Small, localizable strings for now. Replace with your i18n system later.
+  const locale = (typeof navigator !== 'undefined' && navigator.language) ? navigator.language : 'en';
+  const lang = locale.split('-')[0];
+  const strings = {
+    en: {
+      placeholder: 'Enter a prompt here',
+      bottomInfo:
+        "Accessibility bot may display inaccurate info, including about people, so double-check its responses.",
+    },
+    es: {
+      placeholder: 'Introduce una solicitud aquí',
+      bottomInfo:
+        'El bot de accesibilidad puede mostrar información inexacta, incluyendo sobre personas; verifique las respuestas.',
+    },
+    ar: {
+      placeholder: 'أدخل النص هنا',
+      bottomInfo: 'قد يعرض الروبوت معلومات غير دقيقة، تحقق من الإجابات.',
+    },
   };
+
+  const t = strings[lang] || strings.en;
 
   return (
     <div className={`main ${darkMode ? 'dark-mode' : 'light-mode'}`}>
-      <div className="nav">
-        <p>Accessibility Bot</p>
-      </div>
-
-      <nav className="navbar">
-        <ul className="nav-list">
-          
-          
-          
-          <li className="nav-item">
-            <a href="#darkMode" className="nav-link" onClick={toggleMode}>
-              {darkMode ? 'Light Mode' : 'Dark Mode'}
-            </a>
-            
-          </li>
-          
-          
-        </ul>
-        
-      </nav>
       {/*<div class="Multi-Lang-Bot">
       <h1>Multi-Language Bot</h1>
       </div>*/}
@@ -82,24 +78,29 @@ const Main = () => {
         )}
 
         <div className="main-bottom">
-          <div className="search-box">
+          <div className="search-box" role="search" aria-label={t.placeholder} data-i18n="searchBox">
+            {/* Accessible label for SR only users */}
+            <label htmlFor="prompt-input" className="sr-only">{t.placeholder}</label>
             <input
+              id="prompt-input"
               onChange={(e) => setInput(e.target.value)}
               value={input}
               type="text"
-              placeholder="Enter a prompt here"
-              aria-label='Enter a promt here'
+              placeholder={t.placeholder}
+              aria-label={t.placeholder}
+              data-i18n="placeholder"
             />
             <div>
-              {/*<img src={assets.gallery_icon} width={30} alt="" />
-              <img src={assets.mic_icon} width={30} alt="" />*/}
+              {/* keep icons but ensure they have alt text for assistive tech */}
+              {/* <img src={assets.gallery_icon} width={30} alt="Open gallery" /> */}
+              {/* <img src={assets.mic_icon} width={30} alt="Record voice" /> */}
               {input ? (
-                <img onClick={() => onSent()} src={assets.send_icon} width={30} alt="" />
+                <img onClick={() => onSent()} src={assets.send_icon} width={30} alt="Send prompt" />
               ) : null}
             </div>
           </div>
-          <p className="bottom-info">
-            Accessibility bot may display inaccurate info, including about people, so double-check its responses.
+          <p className="bottom-info" role="note" data-i18n="bottomInfo">
+            {t.bottomInfo}
           </p>
         </div>
       </div>

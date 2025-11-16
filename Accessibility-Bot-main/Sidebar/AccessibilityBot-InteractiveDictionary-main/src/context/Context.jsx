@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import runChat from "../config/gemini";
 
 export const Context = createContext();
@@ -11,6 +11,22 @@ const ContextProvider = (props) => {
     const [showResult, setShowResult] = useState(false)
     const [loading, setLoading] = useState(false)
     const [resultData, setResultData] = useState("")
+
+    // Global dark mode state persisted to localStorage
+    const [darkMode, setDarkMode] = useState(() => {
+        try {
+            const v = localStorage.getItem('interactive_dark_mode');
+            return v === 'true';
+        } catch (e) {
+            return false;
+        }
+    });
+
+    useEffect(() => {
+        try { localStorage.setItem('interactive_dark_mode', darkMode ? 'true' : 'false'); } catch (e) {}
+    }, [darkMode]);
+
+    const toggleDarkMode = () => setDarkMode(d => !d);
 
 
     function delayPara(index, nextWord) {
@@ -71,6 +87,9 @@ const ContextProvider = (props) => {
         input,
         setInput,
         newChat
+        ,
+        darkMode,
+        toggleDarkMode
     }
 
     return (
