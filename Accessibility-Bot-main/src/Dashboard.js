@@ -286,7 +286,18 @@ export default function Dashboard({ showSidebar = true, isNightMode = false, onT
     }, 500);
   };
 
-  const handleLogout = () => navigate("/login");
+  const handleLogout = () => {
+    // Clear any persisted login state and inform the user
+    try {
+      localStorage.removeItem("isLoggedIn");
+    } catch (e) {
+      // ignore localStorage errors
+    }
+    // Provide a similar popup to the login flow and announce to SR
+    alert("You have been logged out. Redirecting to login page...");
+    announceToScreenReader("You have been logged out.");
+    navigate("/login");
+  };
 
   const sidebarClass = sidebarOpen ? "sidebar open" : "sidebar";
 
