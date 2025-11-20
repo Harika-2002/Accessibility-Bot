@@ -5,7 +5,7 @@ function ViewAccountInfo(props) {
 	const [userId, setUserId] = useState('');
 	const [email, setEmail] = useState('');
 	const [name, setName] = useState('');
-	const [status, setStatus] = useState(''); // ✅ new: track status message
+	const [status, setStatus] = useState('');
 
 	useEffect(() => {
 		const sid = sessionStorage.getItem('userId') || sessionStorage.getItem('user_id') || '';
@@ -20,13 +20,11 @@ function ViewAccountInfo(props) {
 
 	const handleUpdate = (e) => {
 		e.preventDefault();
-
-		// Example of mock update logic:
 		if (email && name) {
-			// success case
+			// success
 			setStatus('✅ Account updated successfully');
 		} else {
-			// error case
+			// error
 			setStatus('❌ Please fill out all required fields');
 		}
 	};
